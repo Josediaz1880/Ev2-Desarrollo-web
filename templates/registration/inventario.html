@@ -1,0 +1,65 @@
+{% extends "sistema/base.html" %}
+
+{%block title%}
+    Inventarios registrados
+{% endblock %}
+
+{%block contenido%}
+    {%if user.is_authenticated%}
+        <h3>Inventarios registrados</h3>
+            <div class="d-flex justify-content-end mb-1">
+                <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Crear">
+                    Crear
+                </a>
+            </div> 
+            <div class="card">
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                <thead>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">ID Sucursal</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel máximo</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel mínimo</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    <th class="text-secondary opacity-7"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inventario in lista_inventarios %}
+                    <tr>
+
+                    <td class="align-middle text-center">
+                        <p class="text-xs font-weight-bold mb-0">{{ inventario.id }}</p>
+                    </td>
+
+                    <td class="align-middle text-center">
+                        <p class="text-xs font-weight-bold mb-0">{{ inventario.id_sucursal_id }}</p>
+                    </td>
+
+                    <td class="align-middle text-center text-sm">
+                        <p class="text-xs font-weight-bold mb-0">{{ inventario.cantidad_maxima }}</p>
+                    </td>
+
+                    <td class="align-middle text-center text-sm">
+                        <p class="text-xs font-weight-bold mb-0">{{ inventario.cantidad_minima }}</p>
+                    </td>
+
+                    <td class="align-middle text-center">
+                    <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
+                        Editar
+                    </a>
+                    </td>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            </div>        
+    {%else%}
+        <h3 >Usuario no autenticado</h3>
+        <h5 >No tienes acceso al sistema</h5>
+
+    {%endif%}
+{%endblock%}

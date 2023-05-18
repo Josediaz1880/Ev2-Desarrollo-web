@@ -1,0 +1,67 @@
+{% extends "sistema/base.html" %}
+
+{%block title%}
+    Usuarios registrados
+{% endblock %}
+
+{%block contenido%}
+    {%if user.is_authenticated%}
+        <h3>Usuarios registrados</h3>
+            <div class="d-flex justify-content-end mb-1">
+                <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Crear">
+                    Crear
+                </a>
+            </div> 
+            <div class="card">
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                <thead>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dirección</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID sucursal</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    <th class="text-secondary opacity-7"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in lista_usuarios %}
+                    <tr>
+
+                    <td class="align-middle text-center">
+                        <p class="text-xs font-weight-bold mb-0">{{ usuario.nombre_completo }}</p>
+                    </td>
+
+                    <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ usuario.direccion }}</p>
+                    </td>
+
+                    <td class="align-middle text-center text-sm">
+                        <p class="text-xs font-weight-bold mb-0">{{ usuario.telefono }}</p>
+                    </td>
+
+                    <td class="align-middle text-center">
+                        <p class="text-xs font-weight-bold mb-0">{{ usuario.sucursal_id }}</p>
+                    </td>
+                    <td class="align-middle text-center">
+                    <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
+                        Editar
+                    </a>
+                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Eliminar">
+                        Eliminar
+                    </a>
+                    </td>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            </div>        
+    {%else%}
+        <h3 >Usuario no autenticado</h3>
+        <h5 >No tienes acceso al sistema</h5>
+
+    {%endif%}
+{%endblock%}
