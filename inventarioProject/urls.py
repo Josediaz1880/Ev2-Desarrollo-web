@@ -18,6 +18,7 @@ from django.urls import path, include
 from inventarioApp.views import *
 from accounts.views import *
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
@@ -33,5 +34,6 @@ urlpatterns = [
     path('productos/', productos_list, name='productos'),
     path('salidas/', salidas_list, name='salidas'),
     path('entradas/', entradas_list, name='entradas'),
+    path('entradas/agregar/',crearEntrada, name='entrada'),
     path('devoluciones/', devoluciones_list, name='devoluciones'),
     ]

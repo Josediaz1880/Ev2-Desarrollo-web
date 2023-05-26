@@ -8,7 +8,7 @@
     {%if user.is_authenticated%}
         <h3> Entradas registradas</h3>
             <div class="d-flex justify-content-end mb-1">
-                <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Crear">
+                <a href="{% url 'entrada'%}" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Crear">
                     Crear
                 </a>
             </div> 

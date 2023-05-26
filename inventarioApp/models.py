@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 # Create your models here.
 class proveedores(models.Model):
     nombre = models.CharField(max_length=50)
@@ -40,7 +42,7 @@ class entradaMercancia(models.Model):
 
     class Meta:
         verbose_name = "Entrada mercancía"
-        verbose_name_plural = "Entrada mercancías"
+        verbose_name_plural = "Entradas mercancía"
 
     def __str__(self):
         return str(self.fecha)
@@ -48,7 +50,7 @@ class entradaMercancia(models.Model):
 """ --------------------------------------------------- """
 
 class salidaMercancia(models.Model):
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateTimeField(default=timezone.now, editable=False)
     cantidad = models.IntegerField()
 
     class Meta:
@@ -61,7 +63,7 @@ class salidaMercancia(models.Model):
 """ --------------------------------------------------- """
 
 class devolucionMercancia(models.Model):
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateTimeField(default=timezone.now, editable=False)
     cantidad = models.IntegerField()
 
     class Meta:

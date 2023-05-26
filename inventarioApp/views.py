@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from inventarioApp.models import *
 from accounts.models import *
+from inventarioApp.forms import *
 
 def index(request):
     return render(request, 'sistema/index.html')
@@ -49,3 +50,21 @@ def entradas_list(request):
 def devoluciones_list(request):
     lista_devoluciones = devolucionMercancia.objects.all()
     return render(request, 'registration/devoluciones.html', {'lista_devoluciones': lista_devoluciones})
+
+
+def crearEntrada(request):
+    form = entradaForm()
+    if (request.method == 'POST'):
+        form = entradaForm(request.POST)
+        if form.is_valid():
+            ent = form.cleaned_data
+            entrada = entradaForm(
+                fecha=ent['nombre'],
+                cantidad=ent['edad']
+            )
+            print("datos validos")
+            entrada.save()
+            form = ''
+            return redirect("/entradas")
+    data = {'form': form, 'titulo': 'Ingresar entrada de productos'}
+    return render(request, 'gestion/crearEntrada.html', data)
