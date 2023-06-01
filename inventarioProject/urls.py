@@ -33,7 +33,13 @@ urlpatterns = [
     path('proveedores/', proveedores_list, name='proveedores'),
     path('productos/', productos_list, name='productos'),
     path('salidas/', salidas_list, name='salidas'),
+    path('salidas/agregar/', crearSalida, name='salida'),
+    path('salidas/editar/<int:id>', editarSalida, name='editarSalida'),
     path('entradas/', entradas_list, name='entradas'),
     path('entradas/agregar/',crearEntrada, name='entrada'),
+    path('entradas/editar/<int:id>', editarEntrada, name='editarEntrada'),
     path('devoluciones/', devoluciones_list, name='devoluciones'),
+    path('devoluciones/agregar/', crearDevolucion, name='devolucion'),
+    path('devoluciones/editar/<int:id>',editarDevolucion, name='editarDevolucion'),
+    path('buscar/',buscar, name='buscar'),
     ]

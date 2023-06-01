@@ -1,0 +1,88 @@
+{% extends "sistema/base.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block contenido %}
+    {% if user.is_authenticated %}
+        <h3>Resultados de búsqueda:</h3>
+
+
+        {% if resultados.salida %}
+            <h4>Salida de mercancía:</h4>
+            {% for resultado in resultados.salida %}
+                <p>Fecha: {{ resultado.fecha }} - Cantidad: {{ resultado.cantidad }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de salida de mercancía.</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if resultados.entrada %}
+            <h4>Entrada de mercancía:</h4>
+            {% for resultado in resultados.entrada %}
+                <p>Fecha: {{ resultado.fecha }} - Cantidad: {{ resultado.cantidad }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de entrada de mercancía.</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if resultados.devolucion %}
+            <h4>Salida de mercancía:</h4>
+            {% for resultado in resultados.devolucion %}
+                <p>Fecha: {{ resultado.fecha }} - Cantidad: {{ resultado.cantidad }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de entrada de mercancía.</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if resultados.proveedor %}
+            <h4>Proveedores:</h4>
+            {% for resultado in resultados.proveedor %}
+                <p>Nombre: {{ resultado.nombre }} - Dirección: {{ resultado.direccion }} - Teléfono: {{ resultado.telefono }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de proveedores.</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if resultados.producto %}
+            <h4>Productos:</h4>
+            {% for resultado in resultados.producto %}
+                <p>Nombre: {{ resultado.nombre }} - Valor Unitario: {{ resultado.valor_unitario }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de productos.</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if resultados.rol %}
+            <h4>Roles:</h4>
+            {% for resultado in resultados.rol %}
+                <p>Nombre: {{ resultado.nombre }} - Descripción: {{ resultado.descripcion }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de roles.</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if resultados.sucursal %}
+            <h4>Sucursales:</h4>
+            {% for resultado in resultados.sucursal %}
+                <p>Nombre: {{ resultado.nombre }} - Dirección: {{ resultado.direccion }} - Teléfono: {{ resultado.telefono }} - Responsable: {{ resultado.responsable }} - Entrada: {{ resultado.entrada }} - Salida: {{ resultado.salida }} - Devolución: {{ resultado.devolucion }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de sucursales.</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if resultados.inventario %}
+            <h4>Inventario:</h4>
+            {% for resultado in resultados.inventario %}
+                <p>Cantidad Máxima: {{ resultado.cantidad_maxima }} - Cantidad Mínima: {{ resultado.cantidad_minima }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de inventario.</p>
+            {% endfor %}
+        {% endif %}
+        
+    {% else %}
+        <h3>Usuario no autenticado</h3>
+        <h5>No tienes acceso al sistema</h5>
+    {% endif %}
+{% endblock %}

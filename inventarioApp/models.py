@@ -47,10 +47,14 @@ class entradaMercancia(models.Model):
     def __str__(self):
         return str(self.fecha)
 
+    def save(self, *args, **kwargs):
+        self.fecha = timezone.now()  # Establecer la fecha con el tiempo actual
+        super().save(*args, **kwargs)
+
 """ --------------------------------------------------- """
 
 class salidaMercancia(models.Model):
-    fecha = models.DateTimeField(default=timezone.now, editable=False)
+    fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
 
     class Meta:
@@ -60,10 +64,14 @@ class salidaMercancia(models.Model):
     def __str__(self):
         return str(self.fecha)
 
+    def save(self, *args, **kwargs):
+        self.fecha = timezone.now()  # Establecer la fecha con el tiempo actual
+        super().save(*args, **kwargs)
+
 """ --------------------------------------------------- """
 
 class devolucionMercancia(models.Model):
-    fecha = models.DateTimeField(default=timezone.now, editable=False)
+    fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
 
     class Meta:
@@ -72,6 +80,10 @@ class devolucionMercancia(models.Model):
 
     def __str__(self):
         return str(self.fecha)
+
+    def save(self, *args, **kwargs):
+        self.fecha = timezone.now()  # Establecer la fecha con el tiempo actual
+        super().save(*args, **kwargs)
 
 """ --------------------------------------------------- """
 
