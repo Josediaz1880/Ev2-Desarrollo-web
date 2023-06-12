@@ -1,0 +1,10 @@
+{% extends "sistema/base.html" %}
+
+{% block contenido %}
+  <h2>Generar Informe</h2>
+  <form method="post" action="{% url 'generar_informe' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Generar Informe</button>
+  </form>
+{% endblock %}

@@ -39,6 +39,7 @@ class proveedor_producto(models.Model):
 class entradaMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
+    producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Entrada mercancía"
@@ -56,6 +57,7 @@ class entradaMercancia(models.Model):
 class salidaMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
+    producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Salida mercancía"
@@ -73,6 +75,7 @@ class salidaMercancia(models.Model):
 class devolucionMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
+    producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Devolución mercancía"

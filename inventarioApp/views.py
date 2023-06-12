@@ -3,6 +3,12 @@ from inventarioApp.models import *
 from accounts.models import *
 from inventarioApp.forms import *
 from django.db.models import Q
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib import styles
+from reportlab.lib.enums import TA_LEFT
+from reportlab.lib.pagesizes import letter
+
 
 
 def index(request):
@@ -175,6 +181,153 @@ def buscar(request):
     }
 
     return render(request, 'gestion/resultado_busqueda.html', {'resultados': resultados})
+
+
+""" ----------------------------------------------------------------- """
+
+
+def generar_informe(request):
+    if request.method == 'POST':
+        form = InformeForm(request.POST)
+        if form.is_valid():
+            incluir_entradas = form.cleaned_data['incluir_entradas']
+            incluir_salidas = form.cleaned_data['incluir_salidas']
+            incluir_devoluciones = form.cleaned_data['incluir_devoluciones']
+            incluir_productos = form.cleaned_data['incluir_productos']
+            incluir_sucursales = form.cleaned_data['incluir_sucursales']
+
+            # Verificar si no se seleccionó ninguna casilla
+            if not (incluir_entradas or incluir_salidas or incluir_devoluciones or incluir_productos or incluir_sucursales):
+                return render(request, 'gestion/generar_informe.html', {'form': form, 'mensaje': 'No se seleccionaron datos para generar el informe'})
+
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="reporte.pdf"'
+
+            p = canvas.Canvas(response)
+
+            y = 700  # Posición vertical inicial
+            espaciado = 50
+            espacio_columna = 20
+
+            # Definir estilos de fuente
+            bold_style = styles.getSampleStyleSheet().get('BodyText')
+            bold_style.fontName = 'Helvetica-Bold'
+            normal_style = styles.getSampleStyleSheet().get('BodyText')
+
+            if incluir_entradas:
+                entradas = entradaMercancia.objects.all()
+                # Agregar lógica para escribir los datos de entradas en el informe
+                p.drawString(100, y, "Datos de Entradas:")
+                y -= 20
+
+                # Dibujar encabezado de columnas
+                # Establecer estilo de fuente normal
+                p.setFont(normal_style.fontName, 10)
+                p.drawString(100, y, "#")
+                p.drawString(115, y, "Producto")
+                p.drawString(180, y, "Cantidad")
+                p.drawString(250, y, "Fecha")
+                y -= espacio_columna
+
+                for entrada in entradas:
+                    p.drawString(100, y, str(entrada.id))
+                    p.drawString(115, y, str(entrada.producto))
+                    p.drawString(180, y, str(entrada.cantidad))
+                    p.drawString(220, y, str(entrada.fecha))
+                    y -= espaciado
+
+            if incluir_salidas:
+                salidas = salidaMercancia.objects.all()
+                # Agregar lógica para escribir los datos de salidas en el informe
+                p.drawString(100, y, "Datos de Salidas:")
+                y -= 20
+
+                # Dibujar encabezado de columnas
+                # Establecer estilo de fuente normal
+                p.setFont(normal_style.fontName, 10)
+                p.drawString(100, y, "#")
+                p.drawString(115, y, "Producto")
+                p.drawString(180, y, "Cantidad")
+                p.drawString(250, y, "Fecha")
+                y -= espacio_columna
+
+                for salida in salidas:
+                    p.drawString(100, y, str(salida.id))
+                    p.drawString(115, y, str(salida.producto))
+                    p.drawString(180, y, str(salida.cantidad))
+                    p.drawString(220, y, str(salida.fecha))
+                    y -= espaciado
+
+            if incluir_devoluciones:
+                devoluciones = devolucionMercancia.objects.all()
+                # Agregar lógica para escribir los datos de devoluciones en el informe
+                p.drawString(100, y, "Datos de Devoluciones:")
+                y -= 20
+
+                # Dibujar encabezado de columnas
+                # Establecer estilo de fuente normal
+                p.setFont(normal_style.fontName, 10)
+                p.drawString(100, y, "#")
+                p.drawString(115, y, "Producto")
+                p.drawString(180, y, "Cantidad")
+                p.drawString(250, y, "Fecha")
+                y -= espacio_columna
+
+                for devolucion in devoluciones:
+                    p.drawString(100, y, str(devolucion.id))
+                    p.drawString(115, y, str(devolucion.producto))
+                    p.drawString(180, y, str(devolucion.cantidad))
+                    p.drawString(220, y, str(devolucion.fecha))
+                    y -= espaciado
+
+            if incluir_productos:
+                productos_lists = productos.objects.all()
+                # Agregar lógica para escribir los datos de devoluciones en el informe
+                p.drawString(100, y, "Datos de Productos:")
+                y -= 20
+
+                p.setFont(normal_style.fontName, 10)
+                p.drawString(100, y, "#")
+                p.drawString(115, y, "Nombre")
+                p.drawString(180, y, "Valor unitario")
+                y -= espacio_columna
+
+                for productos_list in productos_lists:
+                    p.drawString(100, y, str(productos_list.id))
+                    p.drawString(115, y, str(productos_list.nombre))
+                    p.drawString(180, y, str(productos_list.valor_unitario))
+                    y -= espaciado
+
+            if incluir_sucursales:
+                sucursales_lists = sucursales.objects.all()
+                # Agregar lógica para escribir los datos de devoluciones en el informe
+                p.drawString(100, y, "Datos de Sucursales:")
+                y -= 20
+
+                p.setFont(normal_style.fontName, 10)
+                p.drawString(100, y, "id")
+                p.drawString(115, y, "Nombre")
+                p.drawString(200, y, "# entrada")
+                p.drawString(250, y, "# salida")
+                p.drawString(300, y, "# devolución")
+                y -= espacio_columna
+
+                for sucursales_list in sucursales_lists:
+                    p.drawString(100, y, str(sucursales_list.id))
+                    p.drawString(115, y, str(sucursales_list.nombre))
+                    p.drawString(200, y, str(sucursales_list.entrada_id))
+                    p.drawString(250, y, str(sucursales_list.salida_id))
+                    p.drawString(300, y, str(sucursales_list.devolucion_id))
+                    y -= espaciado
+
+            p.showPage()
+            p.save()
+
+            return response
+    else:
+        form = InformeForm()
+
+    return render(request, 'gestion/generar_informe.html', {'form': form})
 
 
 """ ----------------------------------------------------------------- """
