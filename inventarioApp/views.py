@@ -186,6 +186,18 @@ def buscar(request):
 """ ----------------------------------------------------------------- """
 
 
+
+
+
+
+
+
+
+
+
+
+""" ----------------------------------------------------------------- """
+
 def generar_informe(request):
     if request.method == 'POST':
         form = InformeForm(request.POST)
@@ -217,6 +229,7 @@ def generar_informe(request):
             if incluir_entradas:
                 entradas = entradaMercancia.objects.all()
                 # Agregar lógica para escribir los datos de entradas en el informe
+                p.setFont(normal_style.fontName, 13)
                 p.drawString(100, y, "Datos de Entradas:")
                 y -= 20
 
@@ -234,11 +247,15 @@ def generar_informe(request):
                     p.drawString(115, y, str(entrada.producto))
                     p.drawString(180, y, str(entrada.cantidad))
                     p.drawString(220, y, str(entrada.fecha))
-                    y -= espaciado
+                    y -= 20
+                y -= 20
+                p.drawString(220, y, str())
+                    
 
             if incluir_salidas:
                 salidas = salidaMercancia.objects.all()
                 # Agregar lógica para escribir los datos de salidas en el informe
+                p.setFont(normal_style.fontName, 13)
                 p.drawString(100, y, "Datos de Salidas:")
                 y -= 20
 
@@ -256,11 +273,14 @@ def generar_informe(request):
                     p.drawString(115, y, str(salida.producto))
                     p.drawString(180, y, str(salida.cantidad))
                     p.drawString(220, y, str(salida.fecha))
-                    y -= espaciado
+                    y -=20
+                y -= 20
+                p.drawString(220, y, str())
 
             if incluir_devoluciones:
                 devoluciones = devolucionMercancia.objects.all()
                 # Agregar lógica para escribir los datos de devoluciones en el informe
+                p.setFont(normal_style.fontName, 13)
                 p.drawString(100, y, "Datos de Devoluciones:")
                 y -= 20
 
@@ -278,11 +298,14 @@ def generar_informe(request):
                     p.drawString(115, y, str(devolucion.producto))
                     p.drawString(180, y, str(devolucion.cantidad))
                     p.drawString(220, y, str(devolucion.fecha))
-                    y -= espaciado
+                    y -= 20
+                y -= 20
+                p.drawString(220, y, str())
 
             if incluir_productos:
                 productos_lists = productos.objects.all()
                 # Agregar lógica para escribir los datos de devoluciones en el informe
+                p.setFont(normal_style.fontName, 13)
                 p.drawString(100, y, "Datos de Productos:")
                 y -= 20
 
@@ -296,11 +319,14 @@ def generar_informe(request):
                     p.drawString(100, y, str(productos_list.id))
                     p.drawString(115, y, str(productos_list.nombre))
                     p.drawString(180, y, str(productos_list.valor_unitario))
-                    y -= espaciado
+                    y -= 20
+                y -= 20
+                p.drawString(220, y, str())
 
             if incluir_sucursales:
                 sucursales_lists = sucursales.objects.all()
                 # Agregar lógica para escribir los datos de devoluciones en el informe
+                p.setFont(normal_style.fontName, 13)
                 p.drawString(100, y, "Datos de Sucursales:")
                 y -= 20
 
@@ -318,7 +344,9 @@ def generar_informe(request):
                     p.drawString(200, y, str(sucursales_list.entrada_id))
                     p.drawString(250, y, str(sucursales_list.salida_id))
                     p.drawString(300, y, str(sucursales_list.devolucion_id))
-                    y -= espaciado
+                    y -= 20
+                y -= 20
+                p.drawString(220, y, str())
 
             p.showPage()
             p.save()
