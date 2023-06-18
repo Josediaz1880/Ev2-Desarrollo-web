@@ -8,7 +8,7 @@
     {%if user.is_authenticated%}
         <h3>Sucursales registradas</h3>
             <div class="d-flex justify-content-end mb-1">
-                <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Crear">
+                <a href="{% url 'crearSucursal'%}" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Crear">
                     Crear
                 </a>
             </div>  
@@ -17,6 +17,7 @@
                 <table class="table align-items-center mb-0">
                 <thead>
                     <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dirección</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
@@ -28,6 +29,10 @@
                 <tbody>
                     {% for sucursal in lista_sucursales %}
                     <tr>
+
+                    <td class="align-middle text-center">
+                        <p class="text-xs font-weight-bold mb-0">{{ sucursal.id }}</p>
+                    </td>
 
                     <td class="align-middle text-center">
                         <p class="text-xs font-weight-bold mb-0">{{ sucursal.nombre }}</p>
@@ -45,10 +50,10 @@
                         <p class="text-xs font-weight-bold mb-0">{{ sucursal.responsable }}</p>
                     </td>
                     <td class="align-middle text-center">
-                    <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
+                    <a href="{% url 'editarSucursal' id=sucursal.id %}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
                         Editar
                     </a>
-                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Eliminar">
+                    <a href="{% url 'eliminarSucursal' id=sucursal.id %}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Eliminar">
                         Eliminar
                     </a>
                     </td>

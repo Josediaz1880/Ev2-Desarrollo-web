@@ -30,6 +30,20 @@ class productos(models.Model):
 
 """ --------------------------------------------------- """
 
+class sucursales(models.Model):
+    nombre = models.CharField(max_length=50)
+    direccion = models.CharField(max_length=150)
+    telefono = models.CharField(max_length=12)
+    responsable = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = "sucursal"
+        verbose_name_plural = "sucursales"
+
+    def __str__(self):
+        return self.nombre
+
+""" --------------------------------------------------- """
 class proveedor_producto(models.Model):
     proveedor = models.ForeignKey(proveedores, on_delete=models.CASCADE)
     producto = models.ForeignKey(productos, on_delete=models.CASCADE)
@@ -40,6 +54,8 @@ class entradaMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
     producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
+    sucursal = models.ForeignKey(sucursales, on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name = "Entrada mercancía"
@@ -58,6 +74,7 @@ class salidaMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
     producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
+    sucursal = models.ForeignKey(sucursales, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Salida mercancía"
@@ -76,6 +93,7 @@ class devolucionMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
     producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
+    sucursal = models.ForeignKey(sucursales, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = "Devolución mercancía"
@@ -101,23 +119,6 @@ class roles(models.Model):
     def __str__(self):
         return self.nombre
 
-""" --------------------------------------------------- """
-
-class sucursales(models.Model):
-    nombre = models.CharField(max_length=50)
-    direccion = models.CharField(max_length=150)
-    telefono = models.CharField(max_length=12)
-    responsable = models.CharField(max_length=50)
-    entrada = models.ForeignKey(entradaMercancia, on_delete=models.CASCADE)
-    salida = models.ForeignKey(salidaMercancia, on_delete=models.CASCADE)
-    devolucion = models.ForeignKey(devolucionMercancia, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = "sucursal"
-        verbose_name_plural = "sucursales"
-
-    def __str__(self):
-        return self.nombre
 
 
 """ --------------------------------------------------- """

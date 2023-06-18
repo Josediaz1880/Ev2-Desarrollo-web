@@ -9,6 +9,16 @@
         <h3>Resultados de búsqueda:</h3>
 
 
+        {% if resultados.usuario %}
+            <h4>Usuarios:</h4>
+            {% for resultado in resultados.usuario %}
+                <p>Nombre: {{ resultado.nombre_completo }} - Teléfono: {{ resultado.telefono }}</p>
+            {% empty %}
+                <p>No se encontraron resultados de usuarios.</p>
+            {% endfor %}
+        {% endif %}
+
+
         {% if resultados.salida %}
             <h4>Salida de mercancía:</h4>
             {% for resultado in resultados.salida %}

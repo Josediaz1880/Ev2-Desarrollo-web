@@ -1,9 +1,9 @@
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from .models import CustomUser
-from .forms import CustomUserCreationForm
+from .forms import *
 from django.contrib.auth.views import LoginView, LogoutView
 
 
@@ -25,3 +25,41 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     template_name = 'registration/login.html'
+
+
+""" ----------------------------------------------------------------- """
+
+
+def crearUsuario(request):
+    form = CustomUserCreationForm()
+    if (request.method == 'POST'):
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            usu = form.cleaned_data
+            print(usu)
+            print("datos validos")
+            form.save()
+            form = ''
+            return redirect("/usuarios")
+    data = {'form': form, 'titulo': 'Ingresar nuevo usuario'}
+    return render(request, 'gestion/crearUsuario.html', data)
+
+
+def editarUsuario(request, id):
+    usuario = CustomUser.objects.get(id=id)
+    data = {
+        'form': CustomUserCreationForm(instance=usuario),
+        'titulo': 'Editar usuario'
+    }
+    if (request.method == 'POST'):
+        form = CustomUserCreationForm(request.POST, instance=usuario)
+        if (form.is_valid()):
+            form.save()
+            return redirect("/usuarios")
+        else:
+            data['form'] = form
+    return render(request, 'gestion/crearUsuario.html', data)
+
+
+
+""" ----------------------------------------------------------------- """

@@ -1,0 +1,12 @@
+{% extends 'sistema/base.html' %}
+
+{% block contenido %}
+  <h3>Eliminación de sucursal</h3>
+  <p>Estás a punto de eliminar la sucursal: {{ sucursal.nombre }}</p>
+
+    <form id="eliminarForm" action="{% url 'eliminarSucursal' id=sucursal.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Eliminar" class="btn btn-danger" id="eliminarBtn">
+        <a href="{%url 'sucursales'%}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

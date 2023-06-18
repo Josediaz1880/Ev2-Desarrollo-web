@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from inventarioApp.models import *
 from accounts.models import *
 from inventarioApp.forms import *
@@ -159,9 +159,53 @@ def editarDevolucion(request, id):
 """ ----------------------------------------------------------------- """
 
 
+def crearSucursal(request):
+    form = sucursalForm()
+    if (request.method == 'POST'):
+        form = sucursalForm(request.POST)
+        if form.is_valid():
+            suc = form.cleaned_data
+            print(suc)
+            print("datos validos")
+            form.save()
+            form = ''
+            return redirect("/sucursales")
+    data = {'form': form, 'titulo': 'Ingresar nueva sucursal'}
+    return render(request, 'gestion/crearSucursal.html', data)
+
+
+def editarSucursal(request, id):
+    sucursal = sucursales.objects.get(id=id)
+    data = {
+        'form': sucursalForm(instance=sucursal),
+        'titulo': 'Editar sucursal'
+    }
+    if (request.method == 'POST'):
+        form = sucursalForm(request.POST, instance=sucursal)
+        if (form.is_valid()):
+            form.save()
+            return redirect("/sucursales")
+        else:
+            data['form'] = form
+    return render(request, 'gestion/crearSucursal.html', data)
+
+
+def eliminarSucursal(request, id):
+    sucursal = get_object_or_404(sucursales, id=id)
+
+    if request.method == 'POST':
+        # Eliminar la sucursal
+        sucursal.delete()
+        return redirect('/sucursales')
+
+    return render(request, 'gestion/eliminarSucursal.html', {'sucursal': sucursal})
+
+""" ----------------------------------------------------------------- """
+
 def buscar(request):
     query = request.GET.get('q')
 
+    resultados_usuario = CustomUser.objects.filter(nombre_completo__icontains=query)
     resultados_salida = salidaMercancia.objects.filter(Q(cantidad__icontains=query) | Q(cantidad__contains=query))
     resultados_entrada = entradaMercancia.objects.filter(cantidad__icontains=query)
     resultados_devolucion = devolucionMercancia.objects.filter(cantidad__icontains=query)
@@ -171,6 +215,7 @@ def buscar(request):
     resultados_sucursal = sucursales.objects.filter(nombre__icontains=query)
 
     resultados = {
+        'usuario': resultados_usuario,
         'salida': resultados_salida,
         'entrada': resultados_entrada,
         'devolucion': resultados_devolucion,
@@ -185,17 +230,125 @@ def buscar(request):
 
 """ ----------------------------------------------------------------- """
 
+def crearInventario(request):
+    form = inventarioForm()
+    if (request.method == 'POST'):
+        form = inventarioForm(request.POST)
+        if form.is_valid():
+            inv = form.cleaned_data
+            print(inv)
+            print("datos validos")
+            form.save()
+            form = ''
+            return redirect("/inventarios")
+    data = {'form': form, 'titulo': 'Ingresar nuevo inventario'}
+    return render(request, 'gestion/crearInventario.html', data)
 
 
+def editarInventario(request, id):
+    inventary = inventario.objects.get(id=id)
+    data = {
+        'form': inventarioForm(instance=inventary),
+        'titulo': 'Editar inventario'
+    }
+    if (request.method == 'POST'):
+        form = inventarioForm(request.POST, instance=inventary)
+        if (form.is_valid()):
+            form.save()
+            return redirect("/inventarios")
+        else:
+            data['form'] = form
+    return render(request, 'gestion/crearInventario.html', data)
 
 
+""" ----------------------------------------------------------------- """
 
 
+def crearProveedor(request):
+    form = proveedorForm()
+    if (request.method == 'POST'):
+        form = proveedorForm(request.POST)
+        if form.is_valid():
+            pro = form.cleaned_data
+            print(pro)
+            print("datos validos")
+            form.save()
+            form = ''
+            return redirect("/proveedores")
+    data = {'form': form, 'titulo': 'Ingresar nuevo proveedor'}
+    return render(request, 'gestion/crearProveedor.html', data)
 
 
+def editarProveedor(request, id):
+    proveedor = proveedores.objects.get(id=id)
+    data = {
+        'form': proveedorForm(instance=proveedor),
+        'titulo': 'Editar proveedor'
+    }
+    if (request.method == 'POST'):
+        form = proveedorForm(request.POST, instance=proveedor)
+        if (form.is_valid()):
+            form.save()
+            return redirect("/proveedores")
+        else:
+            data['form'] = form
+    return render(request, 'gestion/crearProveedor.html', data)
 
 
+def eliminarProveedor(request, id):
+    proveedor = get_object_or_404(proveedores, id=id)
 
+    if request.method == 'POST':
+        # Eliminar la sucursal
+        proveedor.delete()
+        return redirect('/proveedores')
+
+    return render(request, 'gestion/eliminarProveedor.html', {'proveedor': proveedor})
+
+
+""" ----------------------------------------------------------------- """
+
+
+def crearProducto(request):
+    form = productoForm()
+    if (request.method == 'POST'):
+        form = productoForm(request.POST)
+        if form.is_valid():
+            pro = form.cleaned_data
+            print(pro)
+            print("datos validos")
+            form.save()
+            form = ''
+            return redirect("/productos")
+    data = {'form': form, 'titulo': 'Ingresar nuevo proveedor'}
+    return render(request, 'gestion/crearProducto.html', data)
+
+
+def editarProducto(request, id):
+    producto = productos.objects.get(id=id)
+    data = {
+        'form': productoForm(instance=producto),
+        'titulo': 'Editar producto'
+    }
+    if (request.method == 'POST'):
+        form = productoForm(request.POST, instance=producto)
+        if (form.is_valid()):
+            form.save()
+            return redirect("/productos")
+        else:
+            data['form'] = form
+    return render(request, 'gestion/crearProducto.html', data)
+
+
+def eliminarProducto(request, id):
+    producto = get_object_or_404(productos, id=id)
+
+    if request.method == 'POST':
+        # Eliminar la sucursal
+        producto.delete()
+        return redirect('/productos')
+
+    return render(request, 'gestion/eliminarProducto.html', {'producto': producto})
 """ ----------------------------------------------------------------- """
 
 def generar_informe(request):
@@ -207,9 +360,10 @@ def generar_informe(request):
             incluir_devoluciones = form.cleaned_data['incluir_devoluciones']
             incluir_productos = form.cleaned_data['incluir_productos']
             incluir_sucursales = form.cleaned_data['incluir_sucursales']
+            incluir_usuarios = form.cleaned_data['incluir_usuarios']
 
             # Verificar si no se seleccionó ninguna casilla
-            if not (incluir_entradas or incluir_salidas or incluir_devoluciones or incluir_productos or incluir_sucursales):
+            if not (incluir_entradas or incluir_salidas or incluir_devoluciones or incluir_productos or incluir_sucursales or incluir_usuarios):
                 return render(request, 'gestion/generar_informe.html', {'form': form, 'mensaje': 'No se seleccionaron datos para generar el informe'})
 
             response = HttpResponse(content_type='application/pdf')
@@ -239,14 +393,18 @@ def generar_informe(request):
                 p.drawString(100, y, "#")
                 p.drawString(115, y, "Producto")
                 p.drawString(180, y, "Cantidad")
-                p.drawString(250, y, "Fecha")
+                p.drawString(240, y, "Producto")
+                p.drawString(310, y, "Sucursal")
+                p.drawString(390, y, "Fecha")
                 y -= espacio_columna
 
                 for entrada in entradas:
                     p.drawString(100, y, str(entrada.id))
                     p.drawString(115, y, str(entrada.producto))
                     p.drawString(180, y, str(entrada.cantidad))
-                    p.drawString(220, y, str(entrada.fecha))
+                    p.drawString(240, y, str(entrada.producto))
+                    p.drawString(310, y, str(entrada.sucursal))
+                    p.drawString(390, y, str(entrada.fecha))
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
@@ -265,14 +423,18 @@ def generar_informe(request):
                 p.drawString(100, y, "#")
                 p.drawString(115, y, "Producto")
                 p.drawString(180, y, "Cantidad")
-                p.drawString(250, y, "Fecha")
+                p.drawString(240, y, "Producto")
+                p.drawString(310, y, "Sucursal")
+                p.drawString(390, y, "Fecha")
                 y -= espacio_columna
 
                 for salida in salidas:
                     p.drawString(100, y, str(salida.id))
                     p.drawString(115, y, str(salida.producto))
                     p.drawString(180, y, str(salida.cantidad))
-                    p.drawString(220, y, str(salida.fecha))
+                    p.drawString(240, y, str(salida.producto))
+                    p.drawString(310, y, str(salida.sucursal))
+                    p.drawString(390, y, str(salida.fecha))
                     y -=20
                 y -= 20
                 p.drawString(220, y, str())
@@ -290,14 +452,20 @@ def generar_informe(request):
                 p.drawString(100, y, "#")
                 p.drawString(115, y, "Producto")
                 p.drawString(180, y, "Cantidad")
-                p.drawString(250, y, "Fecha")
+                p.drawString(240, y, "Producto")
+                p.drawString(310, y, "Sucursal")
+                p.drawString(390, y, "Fecha")
+
                 y -= espacio_columna
 
                 for devolucion in devoluciones:
                     p.drawString(100, y, str(devolucion.id))
                     p.drawString(115, y, str(devolucion.producto))
                     p.drawString(180, y, str(devolucion.cantidad))
-                    p.drawString(220, y, str(devolucion.fecha))
+                    p.drawString(240, y, str(devolucion.producto))
+                    p.drawString(310, y, str(devolucion.sucursal))
+                    p.drawString(390, y, str(devolucion.fecha))
+
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
@@ -333,17 +501,40 @@ def generar_informe(request):
                 p.setFont(normal_style.fontName, 10)
                 p.drawString(100, y, "id")
                 p.drawString(115, y, "Nombre")
-                p.drawString(200, y, "# entrada")
-                p.drawString(250, y, "# salida")
-                p.drawString(300, y, "# devolución")
+                p.drawString(200, y, "Teléfono")
+                p.drawString(270, y, "Responsable")
+
                 y -= espacio_columna
 
                 for sucursales_list in sucursales_lists:
                     p.drawString(100, y, str(sucursales_list.id))
                     p.drawString(115, y, str(sucursales_list.nombre))
-                    p.drawString(200, y, str(sucursales_list.entrada_id))
-                    p.drawString(250, y, str(sucursales_list.salida_id))
-                    p.drawString(300, y, str(sucursales_list.devolucion_id))
+                    p.drawString(200, y, str(sucursales_list.telefono))
+                    p.drawString(270, y, str(sucursales_list.responsable))
+                    y -= 20
+                y -= 20
+                p.drawString(220, y, str())
+
+            if incluir_usuarios:
+                usuarios_lists = CustomUser.objects.all()
+                p.setFont(normal_style.fontName, 13)
+                p.drawString(100, y, "Datos de usuarios:")
+                y -= 20
+
+                p.setFont(normal_style.fontName, 10)
+                p.drawString(100, y, "id")
+                p.drawString(115, y, "Usuario")
+                p.drawString(180, y, "telefono")
+                p.drawString(250, y, "activo")
+                p.drawString(300, y, "# sucursal")
+                y -= espacio_columna
+
+                for usuarios_list in usuarios_lists:
+                    p.drawString(100, y, str(usuarios_list.id))
+                    p.drawString(115, y, str(usuarios_list.username))
+                    p.drawString(180, y, str(usuarios_list.telefono))
+                    p.drawString(250, y, str(usuarios_list.is_active))
+                    p.drawString(300, y, str(usuarios_list.sucursal))
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
