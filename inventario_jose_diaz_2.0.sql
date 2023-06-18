@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2023 a las 19:42:53
+-- Tiempo de generación: 18-06-2023 a las 03:23:38
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,11 +39,11 @@ CREATE TABLE `accounts_customuser` (
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL,
-  `nombre_completo` varchar(70) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `telefono` varchar(12) NOT NULL,
-  `rol_id` bigint(20) NOT NULL,
-  `sucursal_id` bigint(20) NOT NULL
+  `nombre_completo` varchar(70) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `telefono` varchar(12) DEFAULT NULL,
+  `rol_id` bigint(20) DEFAULT NULL,
+  `sucursal_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -51,7 +51,9 @@ CREATE TABLE `accounts_customuser` (
 --
 
 INSERT INTO `accounts_customuser` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `nombre_completo`, `direccion`, `telefono`, `rol_id`, `sucursal_id`) VALUES
-(1, 'pbkdf2_sha256$260000$OjJAYA6PMwvakNVgRCdmUh$Kg4BMS8OToSrZUhAbeUmDExSkVXBjWjj4xx6Zx86hVg=', '2023-05-18 17:38:55.288028', 0, 'josediaz', '', '', '', 0, 1, '2023-05-17 17:37:47.784372', 'José Alejandro Díaz Suazo', 'Villa lago', '920178842', 1, 2);
+(5, 'pbkdf2_sha256$260000$kynWgofss5xtYTXNyE6aNG$P/1p7q3Oc+Y1Q/MF5JEa/9Vn37OFCb0iC+H2YMT1t+o=', '2023-06-18 00:05:43.490015', 1, 'josediaz', '', '', '', 1, 1, '2023-06-17 16:48:45.134241', 'José Alejandro Díaz suazo', 'Villa lago', '920178842', 1, 4),
+(7, 'pbkdf2_sha256$260000$XdV8f8LzI68xEpgwKJUdUc$qxE1h8ovimdB4lOpWOQUgPmcvZhTwnsTy/Qu5eUC2/M=', '2023-06-17 20:55:05.985709', 0, 'tester', '', '', '', 0, 0, '2023-06-17 20:54:45.082592', 'tester tested', 'Direccion test', '9999999', 1, 4),
+(8, 'pbkdf2_sha256$260000$2PBhcYOH3xcumGVFhTiH6c$gSOkEbRA8moE6lJNxe+vRTzTOcSA8sFVfXmxKKORj44=', '2023-06-18 01:22:54.307104', 0, 'watafak', '', '', '', 0, 1, '2023-06-18 01:22:35.474855', 'watafakacio', 'Direccion test', '9999999', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -274,7 +276,14 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (20, 'admin', '0002_logentry_remove_auto_add', '2023-05-16 21:47:43.258209'),
 (21, 'admin', '0003_logentry_add_action_flag_choices', '2023-05-16 21:47:43.266139'),
 (22, 'inventarioApp', '0003_auto_20230516_1747', '2023-05-16 21:47:43.633804'),
-(23, 'sessions', '0001_initial', '2023-05-16 21:47:43.648296');
+(23, 'sessions', '0001_initial', '2023-05-16 21:47:43.648296'),
+(24, 'inventarioApp', '0004_auto_20230525_1911', '2023-05-25 23:11:34.991462'),
+(25, 'inventarioApp', '0005_auto_20230525_1925', '2023-05-25 23:25:35.964117'),
+(26, 'inventarioApp', '0006_alter_entradamercancia_fecha', '2023-05-26 21:04:39.970442'),
+(27, 'inventarioApp', '0007_auto_20230531_1624', '2023-05-31 20:24:41.019912'),
+(28, 'inventarioApp', '0008_auto_20230611_1808', '2023-06-11 22:08:09.564394'),
+(29, 'inventarioApp', '0009_auto_20230617_1232', '2023-06-17 16:32:31.567975'),
+(30, 'inventarioApp', '0010_auto_20230617_1246', '2023-06-17 16:46:57.326974');
 
 -- --------------------------------------------------------
 
@@ -294,7 +303,12 @@ CREATE TABLE `django_session` (
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('7u6gcnfbazsufl6moq84uo0z54rdkgnf', '.eJxVjMsOwiAQRf-FtSEgb5fu-w1kGAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKc2YVJdvrdEuCD2g7yHdqtc-xtXebEd4UfdPCpZ3peD_fvoMKo37oQWluCLC6l4HVCEtKGYA2BRaUVaUvKowHMHoSRCMafyUkqDo1Qhr0__kw4RA:1pzUn3:rwliY6KrDNqw8Vx7hi10L4CHHjCTP1AjHhBiBu4xH5w', '2023-06-01 03:58:57.722306'),
-('nrvkw4hqqont4cotblvnf9ppoiiv12kc', '.eJxVjMsOwiAQRf-FtSEgb5fu-w1kGAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKc2YVJdvrdEuCD2g7yHdqtc-xtXebEd4UfdPCpZ3peD_fvoMKo37oQWluCLC6l4HVCEtKGYA2BRaUVaUvKowHMHoSRCMafyUkqDo1Qhr0__kw4RA:1pzhaZ:8cOtgaLYU7hpvEx2QhwNoyBM6Q4Th9-zlhhG2sCwxxE', '2023-06-01 17:38:55.291558');
+('7utdexiskgh9hl923iy70soo8mjgngee', '.eJxVjMsOwiAQRf-FtSEgb5fu-w1kGAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKc2YVJdvrdEuCD2g7yHdqtc-xtXebEd4UfdPCpZ3peD_fvoMKo37oQWluCLC6l4HVCEtKGYA2BRaUVaUvKowHMHoSRCMafyUkqDo1Qhr0__kw4RA:1q2JfN:XcNXKTl9S5JVP4KbSDhqlzqqlhAu8CMOUKaftyx7r5Q', '2023-06-08 22:42:41.187089'),
+('bew54u15qbhzkyc2rru1ml4sm0whn9b6', '.eJxVjEEOwiAQRe_C2pAZLJBx6d4zEDoMUjWQlHbVeHdt0oVu_3vvbyrEdSlh7TKHKamLsur0u42Rn1J3kB6x3pvmVpd5GvWu6IN2fWtJXtfD_TsosZdvzWA9CAo5cgje2piz84OzNg-EBggHAhSTXMIzMGHiaNAQijdMxOr9Aa3tNoo:1qAaNT:uV0DcA8noeOnOMmLUB5p21uOauhx5SO6JBzt0Q8U_OI', '2023-07-01 18:10:23.346677'),
+('dat3nlknfgmb4zmrnnwigpk404lhpw7o', '.eJxVjMsOwiAQRf-FtSEgb5fu-w1kGAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKc2YVJdvrdEuCD2g7yHdqtc-xtXebEd4UfdPCpZ3peD_fvoMKo37oQWluCLC6l4HVCEtKGYA2BRaUVaUvKowHMHoSRCMafyUkqDo1Qhr0__kw4RA:1pzl9B:RUN0NkcY0gVcEOCzBDjKcn33Fo5lZLKsGoBOkOlikXs', '2023-06-01 21:26:53.749742'),
+('szlrn0kj26kmoau7p0zuzj5d278y7w6n', '.eJxVjMsOwiAQRf-FtSEgb5fu-w1kGAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKc2YVJdvrdEuCD2g7yHdqtc-xtXebEd4UfdPCpZ3peD_fvoMKo37oQWluCLC6l4HVCEtKGYA2BRaUVaUvKowHMHoSRCMafyUkqDo1Qhr0__kw4RA:1q2foL:nwtFefh_GxIf253dCYgFnD3VY-bz2oJ5a3ZKg70nrFU', '2023-06-09 22:21:25.227230'),
+('tjvm5iznibpri68l1bev3x4ajb57yyof', '.eJxVjMEOwiAQRP-FsyEVZBc8eu83kGXZStXQpLQn47_bJj3ocea9mbeKtC4lrk3mOGZ1VV6dfrtE_JS6g_ygep80T3WZx6R3RR-06X7K8rod7t9BoVa2tRgTDBKLCQMn8mgDJ0YHABbBJ8diwTrOMIj3ZP1li4DQmY7wLFl9vuoHN5M:1qAh82:vY0HOGXGGYEKHx0f8Sx0UYvYz1AxFWF6Qko3l4U0NKE', '2023-07-02 01:22:54.307104'),
+('vq04asrhceafw1psi03hjfffe6fryd3v', '.eJxVjEEOwiAQRe_C2pAZLJBx6d4zEDoMUjWQlHbVeHdt0oVu_3vvbyrEdSlh7TKHKamLsur0u42Rn1J3kB6x3pvmVpd5GvWu6IN2fWtJXtfD_TsosZdvzWA9CAo5cgje2piz84OzNg-EBggHAhSTXMIzMGHiaNAQijdMxOr9Aa3tNoo:1qAfvL:73IoRNMs1p4eBCpn2g28pgOsn_vvxhYl2Iu9yrzp_zU', '2023-07-02 00:05:43.493011');
 
 -- --------------------------------------------------------
 
@@ -305,15 +319,17 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 CREATE TABLE `inventarioapp_devolucionmercancia` (
   `id` bigint(20) NOT NULL,
   `fecha` datetime(6) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `producto_id` bigint(20) DEFAULT NULL,
+  `sucursal_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `inventarioapp_devolucionmercancia`
 --
 
-INSERT INTO `inventarioapp_devolucionmercancia` (`id`, `fecha`, `cantidad`) VALUES
-(1, '2023-05-31 04:38:26.000000', 1500);
+INSERT INTO `inventarioapp_devolucionmercancia` (`id`, `fecha`, `cantidad`, `producto_id`, `sucursal_id`) VALUES
+(4, '2023-06-18 00:31:29.258529', 9, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -324,15 +340,10 @@ INSERT INTO `inventarioapp_devolucionmercancia` (`id`, `fecha`, `cantidad`) VALU
 CREATE TABLE `inventarioapp_entradamercancia` (
   `id` bigint(20) NOT NULL,
   `fecha` datetime(6) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `producto_id` bigint(20) DEFAULT NULL,
+  `sucursal_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `inventarioapp_entradamercancia`
---
-
-INSERT INTO `inventarioapp_entradamercancia` (`id`, `fecha`, `cantidad`) VALUES
-(1, '2023-05-19 00:33:00.000000', 500);
 
 -- --------------------------------------------------------
 
@@ -352,7 +363,8 @@ CREATE TABLE `inventarioapp_inventario` (
 --
 
 INSERT INTO `inventarioapp_inventario` (`id`, `id_sucursal_id`, `cantidad_maxima`, `cantidad_minima`) VALUES
-(1, 2, 1000, 50);
+(2, 4, 122, 1),
+(5, 8, 12131222, 13);
 
 -- --------------------------------------------------------
 
@@ -372,7 +384,8 @@ CREATE TABLE `inventarioapp_productos` (
 
 INSERT INTO `inventarioapp_productos` (`id`, `nombre`, `valor_unitario`) VALUES
 (1, 'ManiChoc', 150),
-(2, 'Turrón', 250);
+(2, 'Turrón', 250),
+(4, 'Avellanas', 1250);
 
 -- --------------------------------------------------------
 
@@ -405,7 +418,8 @@ CREATE TABLE `inventarioapp_proveedores` (
 --
 
 INSERT INTO `inventarioapp_proveedores` (`id`, `nombre`, `direccion`, `telefono`) VALUES
-(1, 'Fruna', 'Av. San Miguel, Talca', '9133102164');
+(1, 'Fruna', 'Av. San Miguel, Talca', '9133102164'),
+(3, 'Ambrosoli', 'Av siempre viva', '999999999');
 
 -- --------------------------------------------------------
 
@@ -447,15 +461,17 @@ INSERT INTO `inventarioapp_roles` (`id`, `nombre`, `descripcion`) VALUES
 CREATE TABLE `inventarioapp_salidamercancia` (
   `id` bigint(20) NOT NULL,
   `fecha` datetime(6) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `producto_id` bigint(20) DEFAULT NULL,
+  `sucursal_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `inventarioapp_salidamercancia`
 --
 
-INSERT INTO `inventarioapp_salidamercancia` (`id`, `fecha`, `cantidad`) VALUES
-(1, '2023-05-18 00:27:33.000000', 150);
+INSERT INTO `inventarioapp_salidamercancia` (`id`, `fecha`, `cantidad`, `producto_id`, `sucursal_id`) VALUES
+(7, '2023-06-17 17:03:00.474440', 15, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -468,18 +484,16 @@ CREATE TABLE `inventarioapp_sucursales` (
   `nombre` varchar(50) NOT NULL,
   `direccion` varchar(150) NOT NULL,
   `telefono` varchar(12) NOT NULL,
-  `responsable` varchar(50) NOT NULL,
-  `devolucion_id` bigint(20) DEFAULT NULL,
-  `entrada_id` bigint(20) DEFAULT NULL,
-  `salida_id` bigint(20) DEFAULT NULL
+  `responsable` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `inventarioapp_sucursales`
 --
 
-INSERT INTO `inventarioapp_sucursales` (`id`, `nombre`, `direccion`, `telefono`, `responsable`, `devolucion_id`, `entrada_id`, `salida_id`) VALUES
-(2, 'Sucursal Chillán', 'Balmaceda 103', '8946456', 'José Díaz', NULL, NULL, NULL);
+INSERT INTO `inventarioapp_sucursales` (`id`, `nombre`, `direccion`, `telefono`, `responsable`) VALUES
+(4, 'Sucursal Chillán', 'Av siempre viva', '920178842', 'José Díaz'),
+(8, 'Sucursal Talca', 'Av siempre viva', '9999999', 'Raul');
 
 --
 -- Índices para tablas volcadas
@@ -564,13 +578,17 @@ ALTER TABLE `django_session`
 -- Indices de la tabla `inventarioapp_devolucionmercancia`
 --
 ALTER TABLE `inventarioapp_devolucionmercancia`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `inventarioApp_devolu_producto_id_36816719_fk_inventari` (`producto_id`),
+  ADD KEY `inventarioApp_devolu_sucursal_id_32126a86_fk_inventari` (`sucursal_id`);
 
 --
 -- Indices de la tabla `inventarioapp_entradamercancia`
 --
 ALTER TABLE `inventarioapp_entradamercancia`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `inventarioApp_entrad_producto_id_67813dd8_fk_inventari` (`producto_id`),
+  ADD KEY `inventarioApp_entrad_sucursal_id_a8276bca_fk_inventari` (`sucursal_id`);
 
 --
 -- Indices de la tabla `inventarioapp_inventario`
@@ -617,16 +635,15 @@ ALTER TABLE `inventarioapp_roles`
 -- Indices de la tabla `inventarioapp_salidamercancia`
 --
 ALTER TABLE `inventarioapp_salidamercancia`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `inventarioApp_salida_producto_id_5d9b9579_fk_inventari` (`producto_id`),
+  ADD KEY `inventarioApp_salida_sucursal_id_51383125_fk_inventari` (`sucursal_id`);
 
 --
 -- Indices de la tabla `inventarioapp_sucursales`
 --
 ALTER TABLE `inventarioapp_sucursales`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `inventarioApp_sucurs_devolucion_id_fdfafbc9_fk_inventari` (`devolucion_id`),
-  ADD KEY `inventarioApp_sucurs_entrada_id_89b280be_fk_inventari` (`entrada_id`),
-  ADD KEY `inventarioApp_sucurs_salida_id_deacd84c_fk_inventari` (`salida_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -636,7 +653,7 @@ ALTER TABLE `inventarioapp_sucursales`
 -- AUTO_INCREMENT de la tabla `accounts_customuser`
 --
 ALTER TABLE `accounts_customuser`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `accounts_customuser_groups`
@@ -684,31 +701,31 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarioapp_devolucionmercancia`
 --
 ALTER TABLE `inventarioapp_devolucionmercancia`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarioapp_entradamercancia`
 --
 ALTER TABLE `inventarioapp_entradamercancia`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarioapp_inventario`
 --
 ALTER TABLE `inventarioapp_inventario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarioapp_productos`
 --
 ALTER TABLE `inventarioapp_productos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarioapp_producto_inventario`
@@ -720,7 +737,7 @@ ALTER TABLE `inventarioapp_producto_inventario`
 -- AUTO_INCREMENT de la tabla `inventarioapp_proveedores`
 --
 ALTER TABLE `inventarioapp_proveedores`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarioapp_proveedor_producto`
@@ -738,13 +755,13 @@ ALTER TABLE `inventarioapp_roles`
 -- AUTO_INCREMENT de la tabla `inventarioapp_salidamercancia`
 --
 ALTER TABLE `inventarioapp_salidamercancia`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `inventarioapp_sucursales`
 --
 ALTER TABLE `inventarioapp_sucursales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
@@ -792,6 +809,20 @@ ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_accounts_customuser_id` FOREIGN KEY (`user_id`) REFERENCES `accounts_customuser` (`id`);
 
 --
+-- Filtros para la tabla `inventarioapp_devolucionmercancia`
+--
+ALTER TABLE `inventarioapp_devolucionmercancia`
+  ADD CONSTRAINT `inventarioApp_devolu_producto_id_36816719_fk_inventari` FOREIGN KEY (`producto_id`) REFERENCES `inventarioapp_productos` (`id`),
+  ADD CONSTRAINT `inventarioApp_devolu_sucursal_id_32126a86_fk_inventari` FOREIGN KEY (`sucursal_id`) REFERENCES `inventarioapp_sucursales` (`id`);
+
+--
+-- Filtros para la tabla `inventarioapp_entradamercancia`
+--
+ALTER TABLE `inventarioapp_entradamercancia`
+  ADD CONSTRAINT `inventarioApp_entrad_producto_id_67813dd8_fk_inventari` FOREIGN KEY (`producto_id`) REFERENCES `inventarioapp_productos` (`id`),
+  ADD CONSTRAINT `inventarioApp_entrad_sucursal_id_a8276bca_fk_inventari` FOREIGN KEY (`sucursal_id`) REFERENCES `inventarioapp_sucursales` (`id`);
+
+--
 -- Filtros para la tabla `inventarioapp_inventario`
 --
 ALTER TABLE `inventarioapp_inventario`
@@ -812,12 +843,11 @@ ALTER TABLE `inventarioapp_proveedor_producto`
   ADD CONSTRAINT `inventarioApp_provee_proveedor_id_5d74656e_fk_inventari` FOREIGN KEY (`proveedor_id`) REFERENCES `inventarioapp_proveedores` (`id`);
 
 --
--- Filtros para la tabla `inventarioapp_sucursales`
+-- Filtros para la tabla `inventarioapp_salidamercancia`
 --
-ALTER TABLE `inventarioapp_sucursales`
-  ADD CONSTRAINT `inventarioApp_sucurs_devolucion_id_fdfafbc9_fk_inventari` FOREIGN KEY (`devolucion_id`) REFERENCES `inventarioapp_devolucionmercancia` (`id`),
-  ADD CONSTRAINT `inventarioApp_sucurs_entrada_id_89b280be_fk_inventari` FOREIGN KEY (`entrada_id`) REFERENCES `inventarioapp_entradamercancia` (`id`),
-  ADD CONSTRAINT `inventarioApp_sucurs_salida_id_deacd84c_fk_inventari` FOREIGN KEY (`salida_id`) REFERENCES `inventarioapp_salidamercancia` (`id`);
+ALTER TABLE `inventarioapp_salidamercancia`
+  ADD CONSTRAINT `inventarioApp_salida_producto_id_5d9b9579_fk_inventari` FOREIGN KEY (`producto_id`) REFERENCES `inventarioapp_productos` (`id`),
+  ADD CONSTRAINT `inventarioApp_salida_sucursal_id_51383125_fk_inventari` FOREIGN KEY (`sucursal_id`) REFERENCES `inventarioapp_sucursales` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
