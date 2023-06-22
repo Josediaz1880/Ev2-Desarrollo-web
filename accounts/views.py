@@ -60,6 +60,4 @@ def editarUsuario(request, id):
             data['form'] = form
     return render(request, 'gestion/crearUsuario.html', data)
 
-
-
 """ ----------------------------------------------------------------- """

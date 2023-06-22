@@ -524,17 +524,17 @@ def generar_informe(request):
                 p.setFont(normal_style.fontName, 10)
                 p.drawString(100, y, "id")
                 p.drawString(115, y, "Usuario")
-                p.drawString(180, y, "telefono")
-                p.drawString(250, y, "activo")
-                p.drawString(300, y, "# sucursal")
+                p.drawString(200, y, "telefono")
+                p.drawString(270, y, "activo")
+                p.drawString(320, y, "Sucursal")
                 y -= espacio_columna
 
                 for usuarios_list in usuarios_lists:
                     p.drawString(100, y, str(usuarios_list.id))
                     p.drawString(115, y, str(usuarios_list.username))
-                    p.drawString(180, y, str(usuarios_list.telefono))
-                    p.drawString(250, y, str(usuarios_list.is_active))
-                    p.drawString(300, y, str(usuarios_list.sucursal))
+                    p.drawString(200, y, str(usuarios_list.telefono))
+                    p.drawString(270, y, str(usuarios_list.is_active))
+                    p.drawString(320, y, str(usuarios_list.sucursal))
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
