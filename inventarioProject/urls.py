@@ -56,6 +56,7 @@ urlpatterns = [
     path('devoluciones/editar/<int:id>',editarDevolucion, name='editarDevolucion'),
     path('buscar/',buscar, name='buscar'),
     path('generar-informe/', generar_informe, name='generar_reporte'),
+    path('access-denied/', access_denied, name='access_denied'),
 
 
     ]

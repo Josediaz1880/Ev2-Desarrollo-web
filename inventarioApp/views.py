@@ -8,59 +8,66 @@ from reportlab.pdfgen import canvas
 from reportlab.lib import styles
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import letter
-
+from accounts.decorators import permiso_requerido
 
 
 def index(request):
     return render(request, 'sistema/index.html')
 
 
+@permiso_requerido([0])
 def sucursales_list(request):
     lista_sucursales = sucursales.objects.all()
     return render(request, 'registration/sucursales.html', {'lista_sucursales': lista_sucursales})
 
-
+@permiso_requerido([0])
 def usuarios_list(request):
     lista_usuarios = CustomUser.objects.all()
     return render(request, 'registration/usuarios.html', {'lista_usuarios': lista_usuarios})
 
 
+@permiso_requerido([0])
 def roles_list(request):
     lista_roles = roles.objects.all()
     return render(request, 'registration/roles.html', {'lista_roles': lista_roles})
 
-
+@permiso_requerido([0])
 def inventarios_list(request):
     lista_inventarios = inventario.objects.all()
     return render(request, 'registration/inventario.html', {'lista_inventarios': lista_inventarios})
 
-
+@permiso_requerido([0, 1])
 def proveedores_list(request):
     lista_proveedores = proveedores.objects.all()
     return render(request, 'registration/proveedores.html', {'lista_proveedores': lista_proveedores})
 
 
+@permiso_requerido([0, 1])
 def productos_list(request):
     lista_productos = productos.objects.all()
     return render(request, 'registration/productos.html', {'lista_productos': lista_productos})
 
 
+@permiso_requerido([0, 2])
 def salidas_list(request):
     lista_salidas = salidaMercancia.objects.all()
     return render(request, 'registration/salidas.html', {'lista_salidas': lista_salidas})
 
 
+@permiso_requerido([0, 2])
 def entradas_list(request):
     lista_entradas = entradaMercancia.objects.all()
     return render(request, 'registration/entradas.html', {'lista_entradas': lista_entradas})
 
 
+@permiso_requerido([0, 2])
 def devoluciones_list(request):
     lista_devoluciones = devolucionMercancia.objects.all()
     return render(request, 'registration/devoluciones.html', {'lista_devoluciones': lista_devoluciones})
 
 
 """ ----------------------------------------------------------------- """
+@permiso_requerido([0, 2])
 def crearEntrada(request):
     form = entradaForm()
     if (request.method == 'POST'):
@@ -76,6 +83,7 @@ def crearEntrada(request):
     return render(request, 'gestion/crearEntrada.html', data)
 
 
+@permiso_requerido([0, 2])
 def editarEntrada(request, id):
     entrada = entradaMercancia.objects.get(id=id)
     data = {
@@ -93,6 +101,7 @@ def editarEntrada(request, id):
 """ ----------------------------------------------------------------- """
 
 
+@permiso_requerido([0, 2])
 def crearSalida(request):
     form = salidaForm()
     if (request.method == 'POST'):
@@ -108,6 +117,7 @@ def crearSalida(request):
     return render(request, 'gestion/crearSalida.html', data)
 
 
+@permiso_requerido([0, 2])
 def editarSalida(request, id):
     salida = salidaMercancia.objects.get(id=id)
     data = {
@@ -125,6 +135,9 @@ def editarSalida(request, id):
 
 
 """ ----------------------------------------------------------------- """
+
+
+@permiso_requerido([0,2])
 def crearDevolucion(request):
     form = devolucionForm()
     if (request.method == 'POST'):
@@ -140,6 +153,7 @@ def crearDevolucion(request):
     return render(request, 'gestion/crearDevolucion.html', data)
 
 
+@permiso_requerido([0,2])
 def editarDevolucion(request, id):
     devolucion = devolucionMercancia.objects.get(id=id)
     data = {
@@ -159,6 +173,7 @@ def editarDevolucion(request, id):
 """ ----------------------------------------------------------------- """
 
 
+@permiso_requerido([0])
 def crearSucursal(request):
     form = sucursalForm()
     if (request.method == 'POST'):
@@ -174,6 +189,7 @@ def crearSucursal(request):
     return render(request, 'gestion/crearSucursal.html', data)
 
 
+@permiso_requerido([0])
 def editarSucursal(request, id):
     sucursal = sucursales.objects.get(id=id)
     data = {
@@ -190,6 +206,7 @@ def editarSucursal(request, id):
     return render(request, 'gestion/crearSucursal.html', data)
 
 
+@permiso_requerido([0])
 def eliminarSucursal(request, id):
     sucursal = get_object_or_404(sucursales, id=id)
 
@@ -202,6 +219,8 @@ def eliminarSucursal(request, id):
 
 """ ----------------------------------------------------------------- """
 
+
+@permiso_requerido([0,1,2])
 def buscar(request):
     query = request.GET.get('q')
 
@@ -230,6 +249,8 @@ def buscar(request):
 
 """ ----------------------------------------------------------------- """
 
+
+@permiso_requerido([0])
 def crearInventario(request):
     form = inventarioForm()
     if (request.method == 'POST'):
@@ -245,6 +266,7 @@ def crearInventario(request):
     return render(request, 'gestion/crearInventario.html', data)
 
 
+@permiso_requerido([0])
 def editarInventario(request, id):
     inventary = inventario.objects.get(id=id)
     data = {
@@ -264,6 +286,7 @@ def editarInventario(request, id):
 """ ----------------------------------------------------------------- """
 
 
+@permiso_requerido([0, 1])
 def crearProveedor(request):
     form = proveedorForm()
     if (request.method == 'POST'):
@@ -279,6 +302,7 @@ def crearProveedor(request):
     return render(request, 'gestion/crearProveedor.html', data)
 
 
+@permiso_requerido([0, 1])
 def editarProveedor(request, id):
     proveedor = proveedores.objects.get(id=id)
     data = {
@@ -295,6 +319,7 @@ def editarProveedor(request, id):
     return render(request, 'gestion/crearProveedor.html', data)
 
 
+@permiso_requerido([0, 1])
 def eliminarProveedor(request, id):
     proveedor = get_object_or_404(proveedores, id=id)
 
@@ -309,6 +334,7 @@ def eliminarProveedor(request, id):
 """ ----------------------------------------------------------------- """
 
 
+@permiso_requerido([0, 1])
 def crearProducto(request):
     form = productoForm()
     if (request.method == 'POST'):
@@ -324,6 +350,7 @@ def crearProducto(request):
     return render(request, 'gestion/crearProducto.html', data)
 
 
+@permiso_requerido([0, 1])
 def editarProducto(request, id):
     producto = productos.objects.get(id=id)
     data = {
@@ -340,6 +367,7 @@ def editarProducto(request, id):
     return render(request, 'gestion/crearProducto.html', data)
 
 
+@permiso_requerido([0, 1])
 def eliminarProducto(request, id):
     producto = get_object_or_404(productos, id=id)
 
@@ -351,6 +379,8 @@ def eliminarProducto(request, id):
     return render(request, 'gestion/eliminarProducto.html', {'producto': producto})
 """ ----------------------------------------------------------------- """
 
+
+@permiso_requerido([0])
 def generar_informe(request):
     if request.method == 'POST':
         form = InformeForm(request.POST)
@@ -553,3 +583,6 @@ def generar_informe(request):
 
 
 """ ----------------------------------------------------------------- """
+
+def access_denied(request):
+    return render(request, 'registration/access_denied.html')
