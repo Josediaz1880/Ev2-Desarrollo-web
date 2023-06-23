@@ -527,6 +527,7 @@ def generar_informe(request):
                 p.drawString(200, y, "telefono")
                 p.drawString(270, y, "activo")
                 p.drawString(320, y, "Sucursal")
+                p.drawString(400, y, "Rol")
                 y -= espacio_columna
 
                 for usuarios_list in usuarios_lists:
@@ -535,6 +536,8 @@ def generar_informe(request):
                     p.drawString(200, y, str(usuarios_list.telefono))
                     p.drawString(270, y, str(usuarios_list.is_active))
                     p.drawString(320, y, str(usuarios_list.sucursal))
+                    p.drawString(405, y, str(usuarios_list.tipo_permisos))
+
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
