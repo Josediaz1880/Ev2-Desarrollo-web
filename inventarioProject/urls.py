@@ -55,7 +55,7 @@ urlpatterns = [
     path('devoluciones/agregar/', crearDevolucion, name='devolucion'),
     path('devoluciones/editar/<int:id>',editarDevolucion, name='editarDevolucion'),
     path('buscar/',buscar, name='buscar'),
-    path('generar-informe/', generar_informe, name='generar_informe'),
+    path('generar-informe/', generar_informe, name='generar_reporte'),
 
 
     ]
