@@ -61,3 +61,5 @@ def editarUsuario(request, id):
     return render(request, 'gestion/crearUsuario.html', data)
 
 """ ----------------------------------------------------------------- """
+def page_not_found(request, exception):
+    return render(request, 'sistema/404.html', status=404)

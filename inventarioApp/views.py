@@ -586,3 +586,9 @@ def generar_informe(request):
 
 def access_denied(request):
     return render(request, 'registration/access_denied.html')
+
+
+""" ----------------------------------------------------------------- """
+
+def page_not_found(request, exception):
+    return render(request, 'sistema/404.html', status=404)

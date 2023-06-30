@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from inventarioApp.views import *
 from accounts.views import *
+from django.views.defaults import page_not_found
+from accounts.views import page_not_found as accounts_page_not_found
+from inventarioApp.views import page_not_found as inventarioApp_page_not_found
 
 
 urlpatterns = [
@@ -58,5 +61,9 @@ urlpatterns = [
     path('generar-informe/', generar_informe, name='generar_reporte'),
     path('access-denied/', access_denied, name='access_denied'),
 
+    path('inventarioApp/404/', inventarioApp_page_not_found, name='inventarioApp_page_not_found'),
+    path('accounts/404/', accounts_page_not_found, name='accounts_page_not_found'),
+
 
     ]
+handler404 = 'inventarioApp.views.page_not_found'
