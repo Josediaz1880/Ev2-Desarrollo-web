@@ -12,8 +12,7 @@
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group">
-              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Escribir aquí..." id="search-input">
+
             </div>
           </div>
           <ul class="navbar-nav  justify-content-end">
@@ -48,27 +47,3 @@
       </div>
     </nav>
     <!-- End Navbar -->
-
-<script>
-  let ruta = window.location.pathname.replaceAll("/","")
-  let nadvar = document.getElementById("navbarBlur").querySelectorAll("li")[1]
-  let home2 = document.getElementById("navbarBlur").querySelector("h6")
-  home2.textContent = ruta.charAt(0).toUpperCase() + ruta.slice(1);
-  nadvar.textContent = ruta.charAt(0).toUpperCase() + ruta.slice(1);
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var searchInput = document.getElementById('search-input');
-  searchInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      var searchQuery = searchInput.value.trim();
-      if (searchQuery) {
-        var searchUrl = '/buscar/?q=' + encodeURIComponent(searchQuery);
-        window.location.href = searchUrl;
-      }
-    }
-  });
-});
-</script>

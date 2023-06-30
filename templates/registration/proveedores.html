@@ -14,15 +14,13 @@
             </div> 
             <div class="card">
             <div class="table-responsive">
-                <table class="table align-items-center mb-0">
+                <table id="example" class=" display mt-5 table align-items-center mb-0" style="width: 100%">
                 <thead>
                     <tr>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dirección</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Teléfono</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
-                    <th class="text-secondary opacity-7"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,19 +28,15 @@
                     <tr>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ proveedor.id }}</p>
-                    </td>
-
-                    <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ proveedor.nombre }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ proveedor.nombre }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">{{ proveedor.direccion }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ proveedor.direccion }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">{{ proveedor.telefono }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ proveedor.telefono }}</p>
                     </td>
 
                     <td class="align-middle text-center">
@@ -53,10 +47,17 @@
                         Eliminar
                     </a>
                     </td>
-                    
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dirección</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Teléfono</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    </tr>
+                </tfoot>
                 </table>
             </div>
             </div>        

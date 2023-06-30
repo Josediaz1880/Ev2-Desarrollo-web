@@ -14,16 +14,14 @@
             </div>  
             <div class="card">              
             <div class="table-responsive">
-                <table class="table align-items-center mb-0">
+                <table id="example" class=" display mt-5" style="width: 100%">
                 <thead>
                     <tr>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dirección</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dirección</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Responsable</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
-                    <th class="text-secondary opacity-7"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,23 +29,19 @@
                     <tr>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ sucursal.id }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ sucursal.nombre }}</p>
                     </td>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ sucursal.nombre }}</p>
-                    </td>
-
-                    <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ sucursal.direccion }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ sucursal.direccion }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">{{ sucursal.telefono }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ sucursal.telefono }}</p>
                     </td>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ sucursal.responsable }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ sucursal.responsable }}</p>
                     </td>
                     <td class="align-middle text-center">
                     <a href="{% url 'editarSucursal' id=sucursal.id %}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
@@ -61,6 +55,15 @@
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Dirección</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Responsable</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    </tr>
+                </tfoot>
                 </table>
             </div>
             </div>        

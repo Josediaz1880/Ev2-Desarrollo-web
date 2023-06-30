@@ -14,15 +14,13 @@
             </div> 
             <div class="card">
             <div class="table-responsive">
-                <table class="table align-items-center mb-0">
+                <table id="example" class=" display mt-5 table align-items-center mb-0" style="width: 100%">
                 <thead>
                     <tr>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">ID Sucursal</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel máximo</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel mínimo</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
-                    <th class="text-secondary opacity-7"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,19 +28,15 @@
                     <tr>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ inventario.id }}</p>
-                    </td>
-
-                    <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ inventario.id_sucursal_id }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventario.id_sucursal.nombre }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">{{ inventario.cantidad_maxima }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventario.cantidad_maxima }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">{{ inventario.cantidad_minima }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventario.cantidad_minima }}</p>
                     </td>
 
                     <td class="align-middle text-center">
@@ -54,6 +48,14 @@
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                </tfoot>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel máximo</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel mínimo</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    </tr>
                 </table>
             </div>
             </div>        

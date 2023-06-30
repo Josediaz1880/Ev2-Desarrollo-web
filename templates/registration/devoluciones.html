@@ -14,40 +14,35 @@
             </div> 
             <div class="card">
             <div class="table-responsive">
-                <table class="table align-items-center mb-0">
+                <table id="example" class=" display mt-5 table align-items-center mb-0" style="width: 100%">
                 <thead>
                     <tr>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">ID sucursal</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cantidad</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
-                    <th class="text-secondary opacity-7"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for devolucion in lista_devoluciones %}
                     <tr>
 
+
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ devolucion.id }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ devolucion.sucursal.nombre }}</p>
                     </td>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ devolucion.sucursal_id }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ devolucion.producto }}</p>
                     </td>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ devolucion.producto }}</p>
-                    </td>
-
-                    <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ devolucion.fecha }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ devolucion.fecha }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">{{ devolucion.cantidad }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ devolucion.cantidad }}</p>
                     </td>
 
                     <td class="align-middle text-center">
@@ -59,6 +54,15 @@
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cantidad</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    </tr>
+                </tfoot>
                 </table>
             </div>
             </div>        
