@@ -1,14 +1,14 @@
 {% extends "sistema/base.html" %}
 
 {%block title%}
-    Inventarios asignados
+    Inventarios existentes
 {% endblock %}
 
 {%block contenido%}
     {%if user.is_authenticated%}
-        <h3>Inventarios asignados</h3>
+        <h3>Inventarios existentes</h3>
             <div class="d-flex justify-content-end mb-1">
-                <a href="{%url 'crearInventario'%}" class="btn btn-success btn-md" data-toggle="tooltip" data-original-title="Crear">
+                <a href="{%url 'crearInventory'%}" class="btn btn-success btn-md" data-toggle="tooltip" data-original-title="Crear">
                     añadir
                 </a>
             </div> 
@@ -18,29 +18,29 @@
                 <thead>
                     <tr>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel máximo</th>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel mínimo</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Producto</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cantidad</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for inventario in lista_inventarios %}
+                    {% for inventory in lista_inventory %}
                     <tr>
 
                     <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventario.id_sucursal.nombre }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventory.inventario.id_sucursal.nombre }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventario.cantidad_maxima }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventory.producto.nombre }}</p>
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventario.cantidad_minima }}</p>
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ inventory.cantidad }}</p>
                     </td>
 
                     <td class="align-middle text-center">
-                    <a href="{%url 'editarInventario' id=inventario.id%}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
+                    <a href="{%url 'editarInventory' id=inventory.id%}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
                         Editar
                     </a>
                     </td>
@@ -52,8 +52,8 @@
                 </tfoot>
                     <tr>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel máximo</th>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nivel mínimo</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Producto</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cantidad</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                     </tr>
                 </table>

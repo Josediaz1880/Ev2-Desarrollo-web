@@ -129,6 +129,44 @@ class inventarioForm(forms.ModelForm):
         if id_sucursal and inventario.objects.exclude(id=self.instance.id).filter(id_sucursal=id_sucursal).exists():
             raise ValidationError(
                 'Ya existe un inventario asociado a esta sucursal.')
+
+
+""" ------------------------------------------------------------- """
+
+
+class inventoryForm(forms.Form):
+    cantidad = forms.IntegerField(widget=forms.IntegerField())
+
+
+class inventoryForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['inventario'].label_from_instance = lambda obj: f"{obj.id_sucursal}"
+    class Meta:
+        model = producto_inventario
+        fields = '__all__'
+
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+        inventario = cleaned_data.get('inventario')
+        producto = cleaned_data.get('producto')
+        cantidad = cleaned_data.get('cantidad')
+
+        if not cantidad:
+            self.add_error('cantidad', 'Este campo es obligatorio')
+
+        if inventario and producto:
+            # Verificar si ya existe un registro con los mismos valores
+            exists = producto_inventario.objects.filter(
+                inventario_id=inventario, producto_id=producto).exists()
+            if exists:
+                self.add_error(
+                    None, 'Este producto ya existe en el inventario.')
+
+        return cleaned_data
 """ ------------------------------------------------------------- """
 
 

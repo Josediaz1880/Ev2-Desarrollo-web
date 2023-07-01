@@ -36,6 +36,11 @@ def inventarios_list(request):
     lista_inventarios = inventario.objects.all()
     return render(request, 'registration/inventario.html', {'lista_inventarios': lista_inventarios})
 
+@permiso_requerido([0])
+def inventory_list(request):
+    lista_inventory = producto_inventario.objects.all()
+    return render(request, 'registration/inventory.html', {'lista_inventory': lista_inventory})
+
 @permiso_requerido([0, 1])
 def proveedores_list(request):
     lista_proveedores = proveedores.objects.all()
@@ -287,6 +292,42 @@ def editarInventario(request, id):
         else:
             data['form'] = form
     return render(request, 'gestion/crearInventario.html', data)
+
+
+""" ----------------------------------------------------------------- """
+
+
+@permiso_requerido([0])
+def crearInventory(request):
+    form = inventoryForm()
+    if (request.method == 'POST'):
+        form = inventoryForm(request.POST)
+        if form.is_valid():
+            inv = form.cleaned_data
+            print(inv)
+            print("datos validos")
+            form.save()
+            form = ''
+            return redirect("/inventarios")
+    data = {'form': form, 'titulo': 'Ingresar nuevo inventario'}
+    return render(request, 'gestion/crearInventory.html', data)
+
+
+@permiso_requerido([0])
+def editarInventory(request, id):
+    inventory = producto_inventario.objects.get(id=id)
+    data = {
+        'form': inventoryForm(instance=inventory),
+        'titulo': 'Editar inventario'
+    }
+    if (request.method == 'POST'):
+        form = inventoryForm(request.POST, instance=inventory)
+        if (form.is_valid()):
+            form.save()
+            return redirect("/inventarios")
+        else:
+            data['form'] = form
+    return render(request, 'gestion/crearInventory.html', data)
 
 
 """ ----------------------------------------------------------------- """

@@ -37,9 +37,12 @@ urlpatterns = [
     path('usuarios/agregar/', crearUsuario, name='crearUsuario'),
     path('usuarios/editar/<int:id>/',editarUsuario, name='editarUsuario'),
     path('roles/', roles_list, name='roles'),
-    path('inventarios/', inventarios_list, name='inventarios'),
-    path('inventarios/agregar/', crearInventario, name='crearInventario'),
-    path('inventarios/editar/<int:id>/', editarInventario, name='editarInventario'),
+    path('ajuste_inventarios/', inventarios_list, name='ajuste_inventarios'),
+    path('ajuste_inventarios/agregar/', crearInventario, name='crearInventario'),
+    path('ajuste_inventarios/editar/<int:id>/', editarInventario, name='editarInventario'),
+    path('inventarios/', inventory_list, name='inventarios'),
+    path('inventarios/agregar/', crearInventory, name='crearInventory'),
+    path('inventarios/editar/<int:id>/', editarInventory, name='editarInventory'),
     path('proveedores/', proveedores_list, name='proveedores'),
     path('proveedores/agregar/', crearProveedor, name='crearProveedor'),
     path('proveedores/editar/<int:id>/', editarProveedor, name='editarProveedor'),
@@ -63,7 +66,6 @@ urlpatterns = [
     path('buscar/',buscar, name='buscar'),
     path('generar-informe/', generar_informe, name='generar_reporte'),
     path('access-denied/', access_denied, name='access_denied'),
-
     path('inventarioApp/404/', inventarioApp_page_not_found, name='inventarioApp_page_not_found'),
     path('accounts/404/', accounts_page_not_found, name='accounts_page_not_found'),
 
