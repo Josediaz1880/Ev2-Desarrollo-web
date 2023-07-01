@@ -36,55 +36,95 @@
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
 </head>
 
 <body class="">
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+          <div class="container-fluid pe-0">
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
+              Control de inventario
+            </a>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+              <ul class="navbar-nav mx-auto ms-xl-auto me-xl-7">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center me-2 " href="#">
+                    <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                    Gestión de inventario
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-2" href="#">
+                    <i class="fa fa-user opacity-6 text-dark me-1"></i>
+                    Control de usuarios
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-2" href="#">
+                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
+                    Control de permisos
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- End Navbar -->
       </div>
     </div>
   </div>
-  <main class="main-content  mt-0">
+  <main class="main-content mt-0">
     <section>
       <div class="page-header min-vh-75">
         <div class="container">
           <div class="row">
-            <div class=" col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
-              {%if user.is_authenticated%}
-                <h4 class="card-title text-center mb-1 fs-4 fw-bold">Hola {{user.username}}, ya estás registrado en el sistema</h4>
-                <a href="{% url 'index'%}" class="btn btn-success" >Ir al sistema<a/>
-                <a href="{% url 'logout'%}" class="btn btn-danger" >Cerrar sesión<a/>
-                
-              {%else%}
-                <div class="card card-plain mt-8">
+            <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
+              {% if user.is_authenticated %}
+                <h4 class="card-title text-center mb-1 fs-4 fw-bold">Hola {{ user.username }}, ya tienes una sesión act en el sistema</h4>
+                <a href="{% url 'index' %}" class="btn btn-success">Ir al sistema</a>
+                <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a>
+              {% else %}
+                <div class="card card-plain mt-8 border-primary border-2">
                   <div class="card-header pb-0 text-left bg-transparent">
-                    <h3 class="font-weight-bolder text-info text-gradient">Bienvenido nuevamente</h3>
-                    <p class="mb-0">Ingresa tu nombre de usuario y contraseña para entrar al sistema</p>
+                    <h3 class="font-weight-bolder text-info text-gradient text-center">Bienvenido nuevamente</h3>
+                    <p class="mb-0 text-center">Ingresa tu nombre de usuario y contraseña para entrar al sistema</p>
                   </div>
                   <div>
                     <form method="post">
                       {% csrf_token %}
-                      <div class="mb-3">
-                          {{ form.as_p}}
+                      <div class="mb-1 mt-3 text-center">
+                          {{ form.as_p }}
                       </div>
                       <div class="text-center">
-                        <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Iniciar sesión</button>
+                        <button type="submit" class="btn bg-gradient-info w-50 mt-1 mb-3">Iniciar sesión</button>
                       </div>
                     </form>
                   </div>
                   <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                    <p class="mb-4 text-sm mx-auto">
+                    <p class="mb-2 text-sm mx-auto">
                       No tienes cuenta?
                       <a href="{% url 'signup' %}" class="text-info text-gradient font-weight-bold">registrate</a>
                     </p>
                   </div>
                 </div>
               </div>
-            {%endif%}
+            {% endif %}
             <div class="col-md-6">
               <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url ({% static 'img/curved-images/curved6.jpg'%})"></div>
+                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url({% static 'img/curved-images/curved6.jpg' %})"></div>
               </div>
             </div>
           </div>

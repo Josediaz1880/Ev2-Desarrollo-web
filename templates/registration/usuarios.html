@@ -21,6 +21,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dirección</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rol</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
@@ -47,6 +48,14 @@
                     </td>
 
                     <td class="align-middle text-center text-sm">
+                        {% if usuario.is_active %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-success" disabled>Activo</button>
+                        {% else %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-danger" disabled>Inactivo</button>
+                        {% endif %}
+                    </td>                
+
+                    <td class="align-middle text-center text-sm">
                     <p class="text-xs font-weight-bold mb-0 fs-6">
                         {% if usuario.tipo_permisos == 0 %}
                         Administrador
@@ -61,6 +70,7 @@
                     <td class="align-middle text-center">
                         <p class="text-xs font-weight-bold mb-0 fs-6">{{ usuario.sucursal.nombre }}</p>
                     </td>
+
                     <td class="align-middle text-center">
                     <a href="{%url 'editarUsuario' id=usuario.id%}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
                         Editar
@@ -76,6 +86,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dirección</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rol</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sucursal</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>

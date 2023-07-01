@@ -19,6 +19,9 @@
                     <tr>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Precio unidad</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Categoría</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proveedor</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Estado</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                     </tr>
                 </thead>
@@ -34,12 +37,26 @@
                         <p class="text-xs font-weight-bold mb-0 fs-6">{{ producto.valor_unitario }}</p>
                     </td>
 
+                    <td class="align-middle text-center text-sm">
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ producto.categoria.nombre }}</p>
+                    </td>
+
+                    <td class="align-middle text-center text-sm">
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ producto.proveedor.nombre }}</p>
+                    </td>
+
+                    <td class="align-middle text-center text-sm">
+                        {% if producto.estado %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-success" disabled>Activo</button>
+                        {% else %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-danger" disabled>Inactivo</button>
+                        {% endif %}
+                    </td>
+
+
                     <td class="align-middle text-center">
                     <a href="{%url 'editarProducto' id=producto.id %}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
                         Editar
-                    </a>
-                    <a href="{%url 'eliminarProducto' id=producto.id %}" class="btn btn-danger btn-sm ms-2" data-toggle="tooltip" data-original-title="Editar">
-                        Eliminar
                     </a>
                     </td>
                     
@@ -50,6 +67,9 @@
                     <tr>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Precio unidad</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Categoría</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proveedor</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Estado</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                     </tr>
                 </tfoot>

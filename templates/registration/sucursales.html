@@ -21,6 +21,7 @@
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dirección</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Responsable</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                     </tr>
                 </thead>
@@ -43,12 +44,18 @@
                     <td class="align-middle text-center">
                         <p class="text-xs font-weight-bold mb-0 fs-6">{{ sucursal.responsable }}</p>
                     </td>
+
+                    <td class="align-middle text-center text-sm">
+                        {% if sucursal.estado %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-success" disabled>Activo</button>
+                        {% else %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-danger" disabled>Inactivo</button>
+                        {% endif %}
+                    </td>
+
                     <td class="align-middle text-center">
                     <a href="{% url 'editarSucursal' id=sucursal.id %}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
                         Editar
-                    </a>
-                    <a href="{% url 'eliminarSucursal' id=sucursal.id %}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Eliminar">
-                        Eliminar
                     </a>
                     </td>
                     </td>
@@ -61,6 +68,7 @@
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Dirección</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Responsable</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                     </tr>
                 </tfoot>

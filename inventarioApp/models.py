@@ -6,6 +6,7 @@ class proveedores(models.Model):
     nombre = models.CharField(max_length=50)
     direccion = models.CharField(max_length=100)
     telefono = models.CharField(max_length=12)
+    estado = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Ingresar proveedor"
@@ -17,9 +18,25 @@ class proveedores(models.Model):
 
 """ --------------------------------------------------- """
 
+
+class categorias(models.Model):
+    nombre = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=150)
+    class Meta:
+        verbose_name = "categoria"
+        verbose_name_plural = "categorias"
+
+    def __str__(self):
+        return self.nombre
+
+
+""" --------------------------------------------------- """
 class productos(models.Model):
     nombre = models.CharField(max_length=50)
     valor_unitario = models.IntegerField()
+    categoria =models.ForeignKey(categorias,on_delete=models.CASCADE,null=True)
+    proveedor = models.ForeignKey(proveedores, on_delete=models.CASCADE,null=True)
+    estado = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "producto"
@@ -35,6 +52,7 @@ class sucursales(models.Model):
     direccion = models.CharField(max_length=150)
     telefono = models.CharField(max_length=12)
     responsable = models.CharField(max_length=50)
+    estado = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "sucursal"
