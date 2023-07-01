@@ -180,6 +180,26 @@ class productoForm(forms.ModelForm):
         if not valor_unitario:
             self.add_error('valor_unitario', 'Este campo es obligatorio')
 
+
+""" ------------------------------------------------------------- """
+
+
+class categoriaForm(forms.Form):
+    nombre = forms.CharField(widget=forms.CharField(max_length=50))
+    descripcion = forms.CharField(widget=forms.CharField(max_length=150))
+
+class categoriaForm(forms.ModelForm):
+    class Meta:
+        model = categorias
+        fields = '__all__'
+
+    def clean(self):
+        cleaned_data = super().clean()
+        nombre = cleaned_data.get('nombre')
+
+        if not nombre:
+            self.add_error('nombre', 'Este campo es obligatorio')
+
 """ ------------------------------------------------------------- """
 
 class InformeForm(forms.Form):

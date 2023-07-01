@@ -48,6 +48,12 @@ def productos_list(request):
     return render(request, 'registration/productos.html', {'lista_productos': lista_productos})
 
 
+@permiso_requerido([0, 1])
+def categorias_list(request):
+    lista_categorias = categorias.objects.all()
+    return render(request, 'registration/categorias.html', {'lista_categorias': lista_categorias})
+
+
 @permiso_requerido([0, 2])
 def salidas_list(request):
     lista_salidas = salidaMercancia.objects.all()
@@ -346,7 +352,7 @@ def crearProducto(request):
             form.save()
             form = ''
             return redirect("/productos")
-    data = {'form': form, 'titulo': 'Ingresar nuevo proveedor'}
+    data = {'form': form, 'titulo': 'Ingresar nuevo producto'}
     return render(request, 'gestion/crearProducto.html', data)
 
 
@@ -377,6 +383,42 @@ def eliminarProducto(request, id):
         return redirect('/productos')
 
     return render(request, 'gestion/eliminarProducto.html', {'producto': producto})
+
+
+""" ----------------------------------------------------------------- """
+
+
+@permiso_requerido([0, 1])
+def crearCategoria(request):
+    form = categoriaForm()
+    if (request.method == 'POST'):
+        form = categoriaForm(request.POST)
+        if form.is_valid():
+            cat = form.cleaned_data
+            print(cat)
+            print("datos validos")
+            form.save()
+            form = ''
+            return redirect("/categorias")
+    data = {'form': form, 'titulo': 'Ingresar nueva categoria'}
+    return render(request, 'gestion/crearCategoria.html', data)
+
+
+@permiso_requerido([0, 1])
+def editarCategoria(request, id):
+    categoria = categorias.objects.get(id=id)
+    data = {
+        'form': categoriaForm(instance=categoria),
+        'titulo': 'Editar categoria'
+    }
+    if (request.method == 'POST'):
+        form = categoriaForm(request.POST, instance=categoria)
+        if (form.is_valid()):
+            form.save()
+            return redirect("/categorias")
+        else:
+            data['form'] = form
+    return render(request, 'gestion/crearCategoria.html', data)
 """ ----------------------------------------------------------------- """
 
 

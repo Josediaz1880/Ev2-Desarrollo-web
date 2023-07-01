@@ -21,7 +21,9 @@ class proveedores(models.Model):
 
 class categorias(models.Model):
     nombre = models.CharField(max_length=50)
-    descripcion = models.CharField(max_length=150)
+    descripcion = models.TextField()
+    estado = models.BooleanField(default=True)
+
     class Meta:
         verbose_name = "categoria"
         verbose_name_plural = "categorias"

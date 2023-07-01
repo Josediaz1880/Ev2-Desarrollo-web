@@ -1,0 +1,73 @@
+{% extends "sistema/base.html" %}
+
+{%block title%}
+    Categorías registradas
+{% endblock %}
+
+{%block contenido%}
+    {%if user.is_authenticated%}
+        <h3> Categorías registradas</h3>
+            <div class="d-flex justify-content-end mb-1">
+                <a href="{%url 'crearCategoria'%}" class="btn btn-success btn-lg" data-toggle="tooltip" data-original-title="Crear">
+                    Crear
+                </a>
+            </div> 
+            <div class="card">
+            <div class="table-responsive">
+                <table id="example" class=" display mt-5 table align-items-center mb-0" style="width: 100%">
+                <thead>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Descripción</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Estado</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in lista_categorias %}
+                    <tr>
+
+                    <td class="align-middle text-center">
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ categoria.nombre }}</p>
+                    </td>
+
+                    <td class="align-middle text-center text-sm">
+                        <p class="text-xs font-weight-bold mb-0 fs-6">{{ categoria.descripcion }}</p>
+                    </td>
+
+
+                    <td class="align-middle text-center text-sm">
+                        {% if categoria.estado %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-success" disabled>Activo</button>
+                        {% else %}
+                            <button class="text-xs font-weight-bold mb-0 fs-6 btn btn-danger" disabled>Inactivo</button>
+                        {% endif %}
+                    </td>
+
+
+                    <td class="align-middle text-center">
+                    <a href="{%url 'editarCategoria' id=categoria.id %}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
+                        Editar
+                    </a>
+                    </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Descripción</th>
+                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Estado</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    </tr>
+                </tfoot>
+                </table>
+            </div>
+            </div>        
+    {%else%}
+        <h3 >Usuario no autenticado</h3>
+        <h5 >No tienes acceso al sistema</h5>
+
+    {%endif%}
+{%endblock%}
