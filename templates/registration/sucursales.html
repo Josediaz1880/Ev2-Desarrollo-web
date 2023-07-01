@@ -7,9 +7,9 @@
 {%block contenido%}
     {%if user.is_authenticated%}
         <h3>Sucursales registradas</h3>
-            <div class="d-flex justify-content-end mb-1">
-                <a href="{% url 'crearSucursal'%}" class="btn btn-success btn-sm" data-toggle="tooltip" data-original-title="Crear">
-                    Crear
+            <div class="d-flex justify-content-end mb-1 mt-3">
+                <a href="{% url 'crearSucursal'%}" class="btn btn-success btn-md" data-toggle="tooltip" data-original-title="Crear">
+                    añadir
                 </a>
             </div>  
             <div class="card">              
