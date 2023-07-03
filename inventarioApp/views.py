@@ -78,8 +78,6 @@ def devoluciones_list(request):
 
 
 """ ----------------------------------------------------------------- """
-
-
 @permiso_requerido([0, 2])
 def crearEntrada(request):
     form = entradaForm()
@@ -472,9 +470,10 @@ def generar_informe(request):
             incluir_productos = form.cleaned_data['incluir_productos']
             incluir_sucursales = form.cleaned_data['incluir_sucursales']
             incluir_usuarios = form.cleaned_data['incluir_usuarios']
+            incluir_inventarios = form.cleaned_data['incluir_inventarios']
 
             # Verificar si no se seleccionó ninguna casilla
-            if not (incluir_entradas or incluir_salidas or incluir_devoluciones or incluir_productos or incluir_sucursales or incluir_usuarios):
+            if not (incluir_entradas or incluir_salidas or incluir_devoluciones or incluir_productos or incluir_sucursales or incluir_usuarios or incluir_inventarios):
                 return render(request, 'gestion/generar_informe.html', {'form': form, 'mensaje': 'No se seleccionaron datos para generar el informe'})
 
             response = HttpResponse(content_type='application/pdf')
@@ -483,7 +482,6 @@ def generar_informe(request):
             p = canvas.Canvas(response)
 
             y = 700  # Posición vertical inicial
-            espaciado = 50
             espacio_columna = 20
 
             # Definir estilos de fuente
@@ -504,18 +502,16 @@ def generar_informe(request):
                 p.drawString(100, y, "#")
                 p.drawString(115, y, "Producto")
                 p.drawString(180, y, "Cantidad")
-                p.drawString(240, y, "Producto")
-                p.drawString(310, y, "Sucursal")
-                p.drawString(390, y, "Fecha")
+                p.drawString(240, y, "Sucursal")
+                p.drawString(330, y, "Fecha")
                 y -= espacio_columna
 
                 for entrada in entradas:
                     p.drawString(100, y, str(entrada.id))
                     p.drawString(115, y, str(entrada.producto))
                     p.drawString(180, y, str(entrada.cantidad))
-                    p.drawString(240, y, str(entrada.producto))
-                    p.drawString(310, y, str(entrada.sucursal))
-                    p.drawString(390, y, str(entrada.fecha))
+                    p.drawString(240, y, str(entrada.sucursal))
+                    p.drawString(330, y, str(entrada.fecha))
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
@@ -534,18 +530,16 @@ def generar_informe(request):
                 p.drawString(100, y, "#")
                 p.drawString(115, y, "Producto")
                 p.drawString(180, y, "Cantidad")
-                p.drawString(240, y, "Producto")
-                p.drawString(310, y, "Sucursal")
-                p.drawString(390, y, "Fecha")
+                p.drawString(240, y, "Sucursal")
+                p.drawString(330, y, "Fecha")
                 y -= espacio_columna
 
                 for salida in salidas:
                     p.drawString(100, y, str(salida.id))
                     p.drawString(115, y, str(salida.producto))
                     p.drawString(180, y, str(salida.cantidad))
-                    p.drawString(240, y, str(salida.producto))
-                    p.drawString(310, y, str(salida.sucursal))
-                    p.drawString(390, y, str(salida.fecha))
+                    p.drawString(240, y, str(salida.sucursal))
+                    p.drawString(330, y, str(salida.fecha))
                     y -=20
                 y -= 20
                 p.drawString(220, y, str())
@@ -563,9 +557,8 @@ def generar_informe(request):
                 p.drawString(100, y, "#")
                 p.drawString(115, y, "Producto")
                 p.drawString(180, y, "Cantidad")
-                p.drawString(240, y, "Producto")
-                p.drawString(310, y, "Sucursal")
-                p.drawString(390, y, "Fecha")
+                p.drawString(240, y, "Sucursal")
+                p.drawString(330, y, "Fecha")
 
                 y -= espacio_columna
 
@@ -573,9 +566,8 @@ def generar_informe(request):
                     p.drawString(100, y, str(devolucion.id))
                     p.drawString(115, y, str(devolucion.producto))
                     p.drawString(180, y, str(devolucion.cantidad))
-                    p.drawString(240, y, str(devolucion.producto))
-                    p.drawString(310, y, str(devolucion.sucursal))
-                    p.drawString(390, y, str(devolucion.fecha))
+                    p.drawString(240, y, str(devolucion.sucursal))
+                    p.drawString(330, y, str(devolucion.fecha))
 
                     y -= 20
                 y -= 20
@@ -622,6 +614,27 @@ def generar_informe(request):
                     p.drawString(115, y, str(sucursales_list.nombre))
                     p.drawString(200, y, str(sucursales_list.telefono))
                     p.drawString(270, y, str(sucursales_list.responsable))
+                    y -= 20
+                y -= 20
+                p.drawString(220, y, str())
+
+            if incluir_inventarios:
+                inventarios_lists = producto_inventario.objects.all()
+                p.setFont(normal_style.fontName, 13)
+                p.drawString(100, y, "Datos de inventarios:")
+                y -= 20
+
+                p.setFont(normal_style.fontName, 10)
+                p.drawString(120, y, "Sucursal")
+                p.drawString(220, y, "Producto")
+                p.drawString(320, y, "Cantidad")
+
+                y -= espacio_columna
+
+                for inventarios_list in inventarios_lists:
+                    p.drawString(100, y, str(inventarios_list.inventario.sucursal.nombre))
+                    p.drawString(220, y, str(inventarios_list.producto))
+                    p.drawString(320, y, str(inventarios_list.cantidad))
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())

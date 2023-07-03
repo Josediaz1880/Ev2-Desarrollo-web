@@ -246,4 +246,5 @@ class InformeForm(forms.Form):
     incluir_devoluciones = forms.BooleanField(required=False)
     incluir_productos = forms.BooleanField(required=False)
     incluir_sucursales = forms.BooleanField(required=False)
+    incluir_inventarios = forms.BooleanField(required=False)
     incluir_usuarios = forms.BooleanField(required=False)

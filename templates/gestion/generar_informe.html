@@ -1,10 +1,55 @@
 {% extends "sistema/base.html" %}
 
+{%block title%}
+  generar reporte
+{%endblock%}
+
 {% block contenido %}
-  <h2>Generar Reporte</h2>
-  <form method="post" action="{% url 'generar_reporte' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Generar Informe</button>
-  </form>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card border-3" style="border-color:#8488a5;">
+          <div class="card-header text-white" style="background-color: #3a416f;">
+            <h2 class="card-title text-white text-center">Generar Reporte</h2>
+          </div>
+          <div class="card-body">
+            <form method="post" action="{% url 'generar_reporte' %}">
+              {% csrf_token %}
+              <div class="form-group text-center">
+                <label for="{{ form.incluir_entradas.id_for_label }}" class="fs-6">Incluir Entradas:</label>
+                {{ form.incluir_entradas }}
+              </div>
+              <div class="form-group text-center">
+                <label for="{{ form.incluir_salidas.id_for_label }}" class="fs-6">Incluir Salidas:</label>
+                {{ form.incluir_salidas }}
+              </div>
+              <div class="form-group text-center">
+                <label for="{{ form.incluir_devoluciones.id_for_label }}" class="fs-6">Incluir Devoluciones:</label>
+                {{ form.incluir_devoluciones }}
+              </div>
+              <div class="form-group text-center">
+                <label for="{{ form.incluir_productos.id_for_label }}" class="fs-6">Incluir Productos:</label>
+                {{ form.incluir_productos }}
+              </div>
+              <div class="form-group text-center">
+                <label for="{{ form.incluir_sucursales.id_for_label }}" class="fs-6">Incluir Sucursales:</label>
+                {{ form.incluir_sucursales }}
+              </div>
+              <div class="form-group text-center">
+                <label for="{{ form.incluir_inventarios.id_for_label }}" class="fs-6">Incluir Inventarios:</label>
+                {{ form.incluir_inventarios }}
+              </div>
+              <div class="form-group text-center">
+                <label for="{{ form.incluir_usuarios.id_for_label }}" class="fs-6">Incluir Usuarios:</label>
+                {{ form.incluir_usuarios }}
+              </div>
+              <div class="text-center w-100">
+                <button type="submit" class="btn w-50 text-white" style="background-color:#3a416f;">Generar Informe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
