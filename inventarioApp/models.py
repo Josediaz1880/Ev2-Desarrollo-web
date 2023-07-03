@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class proveedores(models.Model):
@@ -68,14 +69,15 @@ class proveedor_producto(models.Model):
     proveedor = models.ForeignKey(proveedores, on_delete=models.CASCADE)
     producto = models.ForeignKey(productos, on_delete=models.CASCADE)
 
+
 """ --------------------------------------------------- """
+
 
 class entradaMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
     producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
     sucursal = models.ForeignKey(sucursales, on_delete=models.CASCADE)
-
 
     class Meta:
         verbose_name = "Entrada mercancía"
@@ -86,10 +88,25 @@ class entradaMercancia(models.Model):
 
     def save(self, *args, **kwargs):
         self.fecha = timezone.now()  # Establecer la fecha con el tiempo actual
+
+        if self.cantidad is None:
+            raise ValueError("La cantidad debe ser especificada.")
+
+        # Verificar si el producto ya existe en el inventario de la sucursal
+        producto_inv, created = producto_inventario.objects.get_or_create(producto=self.producto, inventario__sucursal=self.sucursal)
+
+        if created:
+            # Si el producto no existe, crear un nuevo registro en producto_inventario con la cantidad de entradaMercancia
+            producto_inv = producto_inventario.objects.create(producto=self.producto, inventario__sucursal=self.sucursal, cantidad=self.cantidad)
+        else:
+            # Si el producto ya existe, sumar la cantidad de entradaMercancia a la cantidad existente en producto_inventario
+            producto_inv.cantidad += self.cantidad
+            producto_inv.save()
+
         super().save(*args, **kwargs)
 
-""" --------------------------------------------------- """
 
+""" --------------------------------------------------- """
 class salidaMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
@@ -105,8 +122,19 @@ class salidaMercancia(models.Model):
 
     def save(self, *args, **kwargs):
         self.fecha = timezone.now()  # Establecer la fecha con el tiempo actual
-        super().save(*args, **kwargs)
 
+        # Verificar si el producto ha sido previamente vendido
+        if not salidaMercancia.objects.filter(producto=self.producto, sucursal=self.sucursal).exists():
+            raise ValidationError("El producto no ha sido vendido previamente. No se puede realizar la devolución.")
+
+        # Verificar si el producto existe en el inventario de la sucursal
+        producto_inv, created = producto_inventario.objects.get_or_create(producto=self.producto, inventario__sucursal=self.sucursal)
+
+        # Sumar la cantidad devuelta en devolucionMercancia a la cantidad existente en producto_inventario
+        producto_inv.cantidad += self.cantidad
+        producto_inv.save()
+
+        super().save(*args, **kwargs)
 """ --------------------------------------------------- """
 
 class devolucionMercancia(models.Model):
@@ -147,7 +175,7 @@ class roles(models.Model):
 class inventario(models.Model):
     cantidad_maxima = models.IntegerField(null=True)
     cantidad_minima = models.IntegerField(null=True)
-    id_sucursal = models.ForeignKey(sucursales, on_delete=models.CASCADE)
+    sucursal = models.ForeignKey(sucursales, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "inventario"
@@ -174,3 +202,5 @@ class producto_inventario(models.Model):
 
 
 """ --------------------------------------------------- """
+
+

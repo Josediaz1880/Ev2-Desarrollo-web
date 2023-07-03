@@ -78,17 +78,15 @@ def devoluciones_list(request):
 
 
 """ ----------------------------------------------------------------- """
+
+
 @permiso_requerido([0, 2])
 def crearEntrada(request):
     form = entradaForm()
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         form = entradaForm(request.POST)
         if form.is_valid():
-            ent = form.cleaned_data
-            print(ent)
-            print("datos validos")
             form.save()
-            form = ''
             return redirect("/entradas")
     data = {'form': form, 'titulo': 'Ingresar entrada de productos'}
     return render(request, 'gestion/crearEntrada.html', data)
@@ -272,7 +270,7 @@ def crearInventario(request):
             print("datos validos")
             form.save()
             form = ''
-            return redirect("/inventarios")
+            return redirect("/ajuste_inventarios")
     data = {'form': form, 'titulo': 'Ingresar nuevo inventario'}
     return render(request, 'gestion/crearInventario.html', data)
 

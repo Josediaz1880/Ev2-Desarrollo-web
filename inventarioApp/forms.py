@@ -116,7 +116,7 @@ class inventarioForm(forms.ModelForm):
         cleaned_data = super().clean()
         cantidad_maxima = cleaned_data.get('cantidad_maxima')
         cantidad_minima = cleaned_data.get('cantidad_minima')
-        id_sucursal = cleaned_data.get('id_sucursal')
+        sucursal = cleaned_data.get('sucursal')
 
         if not cantidad_maxima:
             self.add_error('cantidad_maxima', 'Este campo es obligatorio')
@@ -126,7 +126,7 @@ class inventarioForm(forms.ModelForm):
         if cantidad_maxima and cantidad_minima and cantidad_maxima <= cantidad_minima:
             raise ValidationError('La cantidad máxima debe ser mayor que la cantidad mínima.')
 
-        if id_sucursal and inventario.objects.exclude(id=self.instance.id).filter(id_sucursal=id_sucursal).exists():
+        if sucursal and inventario.objects.exclude(id=self.instance.id).filter(sucursal=sucursal).exists():
             raise ValidationError(
                 'Ya existe un inventario asociado a esta sucursal.')
 
@@ -142,7 +142,7 @@ class inventoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['inventario'].label_from_instance = lambda obj: f"{obj.id_sucursal}"
+        self.fields['inventario'].label_from_instance = lambda obj: f"{obj.sucursal}"
     class Meta:
         model = producto_inventario
         fields = '__all__'
