@@ -123,16 +123,22 @@ class salidaMercancia(models.Model):
     def save(self, *args, **kwargs):
         self.fecha = timezone.now()  # Establecer la fecha con el tiempo actual
 
-        # Verificar si el producto ha sido previamente vendido
-        if not salidaMercancia.objects.filter(producto=self.producto, sucursal=self.sucursal).exists():
-            raise ValidationError("El producto no ha sido vendido previamente. No se puede realizar la devolución.")
+        if self.cantidad is None:
+            raise ValueError("La cantidad debe ser especificada.")
 
-        # Verificar si el producto existe en el inventario de la sucursal
-        producto_inv, created = producto_inventario.objects.get_or_create(producto=self.producto, inventario__sucursal=self.sucursal)
+        # Verificar si el producto ya existe en el inventario de la sucursal
+        producto_inv = producto_inventario.objects.filter(producto=self.producto, inventario__sucursal=self.sucursal).first()
 
-        # Sumar la cantidad devuelta en devolucionMercancia a la cantidad existente en producto_inventario
-        producto_inv.cantidad += self.cantidad
-        producto_inv.save()
+        if producto_inv:
+            # Comprobar si hay suficiente cantidad en el inventario para la salida
+            if producto_inv.cantidad >= self.cantidad:
+                # Restar la cantidad de salidaMercancia a la cantidad existente en producto_inventario
+                producto_inv.cantidad -= self.cantidad
+                producto_inv.save()
+            else:
+                raise ValueError("No hay suficiente cantidad en el inventario para realizar la salida.")
+        else:
+            raise ValueError("El producto no existe en el inventario de la sucursal.")
 
         super().save(*args, **kwargs)
 """ --------------------------------------------------- """
@@ -152,6 +158,18 @@ class devolucionMercancia(models.Model):
 
     def save(self, *args, **kwargs):
         self.fecha = timezone.now()  # Establecer la fecha con el tiempo actual
+
+        # Verificar si el producto ha sido previamente vendido
+        if not salidaMercancia.objects.filter(producto=self.producto, sucursal=self.sucursal).exists():
+            raise ValidationError("El producto no ha sido vendido previamente. No se puede realizar la devolución.")
+
+        # Verificar si el producto existe en el inventario de la sucursal
+        producto_inv = producto_inventario.objects.get(producto=self.producto, inventario__sucursal=self.sucursal)
+
+        # Sumar la cantidad devuelta en devolucionMercancia a la cantidad existente en producto_inventario
+        producto_inv.cantidad += self.cantidad
+        producto_inv.save()
+
         super().save(*args, **kwargs)
 
 """ --------------------------------------------------- """

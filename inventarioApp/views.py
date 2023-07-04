@@ -144,17 +144,16 @@ def editarSalida(request, id):
 """ ----------------------------------------------------------------- """
 
 
-@permiso_requerido([0,2])
+@permiso_requerido([0, 2])
 def crearDevolucion(request):
-    form = devolucionForm()
+    form = devolucionForm(request.POST or None)
     if (request.method == 'POST'):
-        form = devolucionForm(request.POST)
         if form.is_valid():
             dev = form.cleaned_data
             print(dev)
             print("datos validos")
             form.save()
-            form = ''
+            form = devolucionForm()
             return redirect("/devoluciones")
     data = {'form': form, 'titulo': 'Ingresar devolución de productos'}
     return render(request, 'gestion/crearDevolucion.html', data)
@@ -284,7 +283,7 @@ def editarInventario(request, id):
         form = inventarioForm(request.POST, instance=inventary)
         if (form.is_valid()):
             form.save()
-            return redirect("/inventarios")
+            return redirect("/ajuste_inventarios")
         else:
             data['form'] = form
     return render(request, 'gestion/crearInventario.html', data)

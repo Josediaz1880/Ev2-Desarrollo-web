@@ -41,7 +41,7 @@
 
 </head>
 
-<body class="">
+<body style="background: url('/static/img/curved-images/loginbg.webp') center / cover; background-size: auto 170%;">
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
@@ -98,24 +98,29 @@
                 <a href="{% url 'index' %}" class="btn btn-success">Ir al sistema</a>
                 <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a>
               {% else %}
-                <div class="card card-plain mt-8 border-primary border-2">
-                  <div class="card-header pb-0 text-left bg-transparent">
-                    <h3 class="font-weight-bolder text-info text-gradient text-center">Bienvenido nuevamente</h3>
-                    <p class="mb-0 text-center">Ingresa tu nombre de usuario y contraseña para entrar al sistema</p>
+                <div class="card bg-light card-plain mt-8 border-primary border-5 rounded" >
+                  <div class="card-header pb-0 text-left bg-light">
+                    <h2 class="font-weight-bolder text-info text-gradient text-center ms-0 me-0">Bienvenido nuevamente</h2>
+                    <p class="mb-0 text-center fw-bold ">Ingresa tu nombre de usuario y contraseña para entrar al sistema</p>
                   </div>
                   <div>
                     <form method="post">
                       {% csrf_token %}
-                      <div class="mb-1 mt-3 text-center">
-                          {{ form.as_p }}
+                      <div class="form-group text-center">
+                        <label for="{{ form.username.id_for_label }}" class=" mt-3 fs-6">Usuario:</label>
+                        {{ form.username }}
+                      </div>
+                      <div class="form-group text-center">
+                        <label for="{{ form.password.id_for_label }}" class="fs-6">Contraseña:</label>
+                        {{ form.password }}
                       </div>
                       <div class="text-center">
-                        <button type="submit" class="btn bg-gradient-info w-50 mt-1 mb-3">Iniciar sesión</button>
-                      </div>
+                        <button type="submit" class="btn bg-gradient-info w-50 mt-0 mb-3">Iniciar sesión</button>
+                      </div>                       
                     </form>
                   </div>
                   <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                    <p class="mb-2 text-sm mx-auto">
+                    <p class="mb-2 text-sm mx-auto fw-bold">
                       No tienes cuenta?
                       <a href="{% url 'signup' %}" class="text-info text-gradient font-weight-bold">registrate</a>
                     </p>
@@ -123,10 +128,6 @@
                 </div>
               </div>
             {% endif %}
-            <div class="col-md-6">
-              <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url({% static 'img/curved-images/curved6.jpg' %})"></div>
-              </div>
             </div>
           </div>
         </div>

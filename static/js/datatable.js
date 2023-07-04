@@ -11,6 +11,7 @@ $(document).ready(function() {
       processing: "Procesando...",
       search: "Buscar:",
       zeroRecords: "No se encontraron registros",
+      lengthMenu: "Mostrar _MENU_ entradas",
       paginate: {
         first: "Primero",
         previous: "Anterior",

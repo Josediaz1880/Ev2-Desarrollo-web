@@ -6,7 +6,12 @@
 
 {%block contenido%}
     {%if user.is_authenticated%}
-        <h3> Categorías registradas</h3>
+    <div class="container my-3 mx-3 text-center">
+        <div class="alert-primary text-center text-uppercase d-inline-block w-50 mx-auto p-2 rounded">
+            <h3 class="text-white">Categorías registradas</h3>
+        </div>
+    </div>
+
             <div class="d-flex justify-content-end mb-1">
                 <a href="{%url 'crearCategoria'%}" class="btn btn-success btn-md" data-toggle="tooltip" data-original-title="Crear">
                     añadir
@@ -46,7 +51,7 @@
 
 
                     <td class="align-middle text-center">
-                    <a href="{%url 'editarCategoria' id=categoria.id %}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Editar">
+                    <a href="{%url 'editarCategoria' id=categoria.id %}" class="btn btn-warning btn-md mb-0" data-toggle="tooltip" data-original-title="Editar">
                         Editar
                     </a>
                     </td>

@@ -1,38 +1,89 @@
 {% extends "sistema/base.html" %}
 
-{%block title%}
+{% block title %}
     Ingreso nueva sucursal
 {% endblock %}
 
-{%block contenido%}
-    {%if user.is_authenticated%}
-        <div class="container">
-        <div class="row align-items-center">
-            <div class="col-12 hero-text-image">
-            <div class="row">
-                <div class="col-lg-8 text-center text-lg-start">
-                <h3>Ingreso de nueva sucursal</h3>
 
-                <form method="post">
-                        <table class="table">
-                            {{form.as_table}}
-                            <tr>
-                                <td colspan="2">
-                                    <input type="submit" class="btn btn-success float-end" value="agregar">
-                                    <a href="/sucursales" class="btn btn-danger"> volver</a>
-                                </td>
-                            </tr>
-                        </table>
-                        {% csrf_token %}
-                </form>
-                
+{% block contenido %}
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-3" style="border-color: #8488a5;">
+                        <div class="card-header text-white" style="background-color: #3a416f;">
+                            <h2 class="card-title text-white text-center text-uppercase">Ingreso de nueva sucursal</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group text-center">
+                                    <label for="{{ form.nombre.id_for_label }}" class="fs-6">Nombre:</label>
+                                    {{ form.nombre }}
+                                    {% if form.errors.nombre %}
+                                    <div class="form-group text-center">
+                                        {% for error in form.errors.nombre %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group text-center">
+                                    <label for="{{ form.direccion.id_for_label }}" class="fs-6">Dirección:</label>
+                                    {{ form.direccion }}
+                                    {% if form.errors.direccion %}
+                                    <div class="form-group text-center">
+                                        {% for error in form.errors.direccion %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group text-center">
+                                    <label for="{{ form.telefono.id_for_label }}" class="fs-6">Teléfono:</label>
+                                    {{ form.telefono }}
+                                    {% if form.errors.telefono %}
+                                    <div class="form-group text-center">
+                                        {% for error in form.errors.telefono %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group text-center">
+                                    <label for="{{ form.responsable.id_for_label }}" class="fs-6">Responsable:</label>
+                                    {{ form.responsable }}
+                                    {% if form.errors.responsable %}
+                                    <div class="form-group text-center">
+                                        {% for error in form.errors.responsable %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group text-center">
+                                    <label for="{{ form.estado.id_for_label }}" class="fs-6">Estado:</label>
+                                    {{ form.estado }}
+                                    {% if form.errors.estado %}
+                                    <div class="form-group text-center">
+                                        {% for error in form.errors.estado %}
+                                            <span class="text-danger">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="text-center">
+                                    <input type="submit" class="btn btn-success w-25" value="Agregar">
+                                    <a href="/sucursales" class="btn btn-danger w-25 ms-3">Volver</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
         </div>
-        </div>        
-    {%else%}
-        <h3 >Usuario no autenticado</h3>
-        <h5 >No tienes acceso al sistema</h5>
-    {%endif%}
-{%endblock%}
+    {% else %}
+        <h3>Usuario no autenticado</h3>
+        <h5>No tienes acceso al sistema</h5>
+    {% endif %}
+{% endblock %}

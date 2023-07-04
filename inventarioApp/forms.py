@@ -16,15 +16,13 @@ class entradaForm(forms.ModelForm):
         cantidad = cleaned_data.get('cantidad')
         producto = cleaned_data.get('producto')
 
+        if cantidad is not None and cantidad < 0:
+            self.add_error('cantidad', 'La cantidad no puede ser negativa')
         if not cantidad:
             self.add_error('cantidad', 'Este campo es obligatorio')
         if not producto:
             self.add_error('producto', 'Este campo es obligatorio')
 """ ------------------------------------------------------------- """
-
-class salidaForm(forms.Form):
-    fecha = forms.DateTimeField(initial=timezone.now().strftime("%Y-%m-%d %H:%M:%S"))
-    cantidad = forms.IntegerField(widget=forms.IntegerField())
 
 class salidaForm(forms.ModelForm):
     class Meta:
@@ -35,19 +33,25 @@ class salidaForm(forms.ModelForm):
         cleaned_data = super().clean()
         cantidad = cleaned_data.get('cantidad')
         producto = cleaned_data.get('producto')
+        sucursal = cleaned_data.get('sucursal')
 
         if not cantidad:
             self.add_error('cantidad', 'Este campo es obligatorio')
         if not producto:
             self.add_error('producto', 'Este campo es obligatorio')
+        else:
+            # Verificar si el producto ya existe en el inventario de la sucursal
+            producto_inv = producto_inventario.objects.filter(producto=producto, inventario__sucursal=sucursal).first()
+
+            if producto_inv:
+                # Comprobar si hay suficiente cantidad en el inventario para la salida
+                if cantidad and cantidad > producto_inv.cantidad:
+                    self.add_error('cantidad', 'No hay suficiente cantidad en el inventario para realizar la salida.')
+            else:
+                self.add_error('producto', 'El producto no existe en el inventario de la sucursal.')
 
 
 """ ------------------------------------------------------------- """
-
-
-class devolucionForm(forms.Form):
-    fecha = forms.DateTimeField(initial=timezone.now().strftime("%Y-%m-%d %H:%M:%S"))
-    cantidad = forms.IntegerField(widget=forms.IntegerField())
 
 
 class devolucionForm(forms.ModelForm):
@@ -59,13 +63,16 @@ class devolucionForm(forms.ModelForm):
         cleaned_data = super().clean()
         cantidad = cleaned_data.get('cantidad')
         producto = cleaned_data.get('producto')
+        sucursal = cleaned_data.get('sucursal')
 
+        if cantidad is not None and cantidad < 0:
+            self.add_error('cantidad', 'La cantidad no puede ser negativa')
         if not cantidad:
             self.add_error('cantidad', 'Este campo es obligatorio')
         if not producto:
             self.add_error('producto', 'Este campo es obligatorio')
-
-
+        if not salidaMercancia.objects.filter(producto=producto, sucursal=sucursal).exists():
+            self.add_error( 'producto','El producto no ha salido previamente de la sucursal. No se puede realizar la devolución.')
 """ ------------------------------------------------------------- """
 
 
@@ -123,12 +130,17 @@ class inventarioForm(forms.ModelForm):
         if not cantidad_minima:
             self.add_error('cantidad_minima', 'Este campo es obligatorio')
 
+        if cantidad_minima is not None and cantidad_maxima < 0:
+            self.add_error('cantidad_maxima','La cantidad máxima no puede ser negativa')
+
+        if cantidad_maxima is not None and cantidad_minima < 0:
+            self.add_error('cantidad_minima', 'La cantidad mínima no puede ser negativa')
+
         if cantidad_maxima and cantidad_minima and cantidad_maxima <= cantidad_minima:
-            raise ValidationError('La cantidad máxima debe ser mayor que la cantidad mínima.')
+            self.add_error('cantidad_maxima','La cantidad máxima debe ser mayor que la cantidad mínima.')
 
         if sucursal and inventario.objects.exclude(id=self.instance.id).filter(sucursal=sucursal).exists():
-            raise ValidationError(
-                'Ya existe un inventario asociado a esta sucursal.')
+            self.add_error('sucursal','Ya existe un inventario asociado a esta sucursal.')
 
 
 """ ------------------------------------------------------------- """
@@ -157,6 +169,9 @@ class inventoryForm(forms.ModelForm):
 
         if not cantidad:
             self.add_error('cantidad', 'Este campo es obligatorio')
+
+        if cantidad is not None and cantidad < 0:
+            self.add_error('cantidad', 'La cantidad no puede ser negativa')
 
         if inventario and producto:
             # Verificar si ya existe un registro con los mismos valores
@@ -212,6 +227,9 @@ class productoForm(forms.ModelForm):
         cleaned_data = super().clean()
         nombre = cleaned_data.get('nombre')
         valor_unitario = cleaned_data.get('valor_unitario')
+
+        if valor_unitario is not None and valor_unitario < 0:
+            self.add_error('valor_unitario', 'El valor no puede ser negativo')
 
         if not nombre:
             self.add_error('nombre', 'Este campo es obligatorio')
