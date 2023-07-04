@@ -160,7 +160,6 @@ class inventoryForm(forms.ModelForm):
         fields = '__all__'
 
 
-
     def clean(self):
         cleaned_data = super().clean()
         inventario = cleaned_data.get('inventario')

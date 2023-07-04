@@ -93,7 +93,7 @@ class entradaMercancia(models.Model):
             raise ValueError("La cantidad debe ser especificada.")
 
         # Verificar si el producto ya existe en el inventario de la sucursal
-        producto_inv, created = producto_inventario.objects.get_or_create(producto=self.producto, inventario__sucursal=self.sucursal)
+        producto_inv, created = producto_inventario.objects.get_or_create(producto=self.producto, inventario__sucursal=self.sucursal, cantidad=self.cantidad)
 
         if created:
             # Si el producto no existe, crear un nuevo registro en producto_inventario con la cantidad de entradaMercancia
