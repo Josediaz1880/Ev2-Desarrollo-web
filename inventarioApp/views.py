@@ -480,7 +480,7 @@ def generar_informe(request):
 
             p = canvas.Canvas(response)
 
-            y = 700  # Posición vertical inicial
+            y = 800  # Posición vertical inicial
             espacio_columna = 20
 
             # Definir estilos de fuente
@@ -506,6 +506,26 @@ def generar_informe(request):
                 y -= espacio_columna
 
                 for entrada in entradas:
+                    if y < espacio_columna:
+                        p.showPage()
+                        y = 815
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de Entradas:")
+                        y -= 20
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de Entradas:")
+                        y -= 20
+
+                        p.setFont(normal_style.fontName, 10)
+                        p.drawString(100, y, "#")
+                        p.drawString(115, y, "Producto")
+                        p.drawString(180, y, "Cantidad")
+                        p.drawString(240, y, "Sucursal")
+                        p.drawString(330, y, "Fecha")
+                        y -= espacio_columna
+                
                     p.drawString(100, y, str(entrada.id))
                     p.drawString(115, y, str(entrada.producto))
                     p.drawString(180, y, str(entrada.cantidad))
@@ -515,7 +535,6 @@ def generar_informe(request):
                 y -= 20
                 p.drawString(220, y, str())
                     
-
             if incluir_salidas:
                 salidas = salidaMercancia.objects.all()
                 # Agregar lógica para escribir los datos de salidas en el informe
@@ -534,14 +553,31 @@ def generar_informe(request):
                 y -= espacio_columna
 
                 for salida in salidas:
+                    if y < espacio_columna:
+                        p.showPage()
+                        y = 815
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de Salidas:")
+                        y -= 20
+
+                        p.setFont(normal_style.fontName, 10)
+                        p.drawString(100, y, "#")
+                        p.drawString(115, y, "Producto")
+                        p.drawString(180, y, "Cantidad")
+                        p.drawString(240, y, "Sucursal")
+                        p.drawString(330, y, "Fecha")
+                        y -= espacio_columna
+
                     p.drawString(100, y, str(salida.id))
                     p.drawString(115, y, str(salida.producto))
                     p.drawString(180, y, str(salida.cantidad))
                     p.drawString(240, y, str(salida.sucursal))
                     p.drawString(330, y, str(salida.fecha))
-                    y -=20
+                    y -= 20
                 y -= 20
                 p.drawString(220, y, str())
+
 
             if incluir_devoluciones:
                 devoluciones = devolucionMercancia.objects.all()
@@ -562,6 +598,22 @@ def generar_informe(request):
                 y -= espacio_columna
 
                 for devolucion in devoluciones:
+                    if y < espacio_columna:
+                        p.showPage()
+                        y = 815
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de Devoluciones:")
+                        y -= 20
+                        
+                        p.setFont(normal_style.fontName, 10)
+                        p.drawString(100, y, "#")
+                        p.drawString(115, y, "Producto")
+                        p.drawString(180, y, "Cantidad")
+                        p.drawString(240, y, "Sucursal")
+                        p.drawString(330, y, "Fecha")
+                        y-=20
+
                     p.drawString(100, y, str(devolucion.id))
                     p.drawString(115, y, str(devolucion.producto))
                     p.drawString(180, y, str(devolucion.cantidad))
@@ -571,6 +623,7 @@ def generar_informe(request):
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
+
 
             if incluir_productos:
                 productos_lists = productos.objects.all()
@@ -586,12 +639,27 @@ def generar_informe(request):
                 y -= espacio_columna
 
                 for productos_list in productos_lists:
+                    if y < espacio_columna:
+                        p.showPage()
+                        y = 815
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de Productos:")
+                        y -= 20
+
+                        p.setFont(normal_style.fontName, 10)
+                        p.drawString(100, y, "#")
+                        p.drawString(115, y, "Nombre")
+                        p.drawString(180, y, "Valor unitario")
+                        y -= 20
+
                     p.drawString(100, y, str(productos_list.id))
                     p.drawString(115, y, str(productos_list.nombre))
                     p.drawString(180, y, str(productos_list.valor_unitario))
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
+
 
             if incluir_sucursales:
                 sucursales_lists = sucursales.objects.all()
@@ -609,6 +677,21 @@ def generar_informe(request):
                 y -= espacio_columna
 
                 for sucursales_list in sucursales_lists:
+                    if y < espacio_columna:
+                        p.showPage()
+                        y = 815
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de Sucursales:")
+                        y -= 20
+
+                        p.setFont(normal_style.fontName, 10)
+                        p.drawString(100, y, "id")
+                        p.drawString(115, y, "Nombre")
+                        p.drawString(200, y, "Teléfono")
+                        p.drawString(270, y, "Responsable")
+                        y -= 20
+
                     p.drawString(100, y, str(sucursales_list.id))
                     p.drawString(115, y, str(sucursales_list.nombre))
                     p.drawString(200, y, str(sucursales_list.telefono))
@@ -616,6 +699,7 @@ def generar_informe(request):
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
+
 
             if incluir_inventarios:
                 inventarios_lists = producto_inventario.objects.all()
@@ -631,12 +715,27 @@ def generar_informe(request):
                 y -= espacio_columna
 
                 for inventarios_list in inventarios_lists:
+                    if y < espacio_columna:
+                        p.showPage()
+                        y = 815
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de inventarios:")
+                        y -= 20
+
+                        p.setFont(normal_style.fontName, 10)
+                        p.drawString(120, y, "Sucursal")
+                        p.drawString(220, y, "Producto")
+                        p.drawString(320, y, "Cantidad")
+                        y-=20
+
                     p.drawString(100, y, str(inventarios_list.inventario.sucursal.nombre))
                     p.drawString(220, y, str(inventarios_list.producto))
                     p.drawString(320, y, str(inventarios_list.cantidad))
                     y -= 20
                 y -= 20
                 p.drawString(220, y, str())
+
 
             if incluir_usuarios:
                 usuarios_lists = CustomUser.objects.all()
@@ -650,16 +749,30 @@ def generar_informe(request):
                 p.drawString(200, y, "telefono")
                 p.drawString(270, y, "activo")
                 p.drawString(320, y, "Sucursal")
-                p.drawString(400, y, "Rol")
                 y -= espacio_columna
 
                 for usuarios_list in usuarios_lists:
+                    if y < espacio_columna:
+                        p.showPage()
+                        y = 815
+
+                        p.setFont(normal_style.fontName, 13)
+                        p.drawString(100, y, "Datos de usuarios:")
+                        y -= 20
+
+                        p.setFont(normal_style.fontName, 10)
+                        p.drawString(100, y, "id")
+                        p.drawString(115, y, "Usuario")
+                        p.drawString(200, y, "telefono")
+                        p.drawString(270, y, "activo")
+                        p.drawString(320, y, "Sucursal")
+                        y -= 20
+
                     p.drawString(100, y, str(usuarios_list.id))
                     p.drawString(115, y, str(usuarios_list.username))
                     p.drawString(200, y, str(usuarios_list.telefono))
                     p.drawString(270, y, str(usuarios_list.is_active))
                     p.drawString(320, y, str(usuarios_list.sucursal))
-                    p.drawString(405, y, str(usuarios_list.tipo_permisos))
 
                     y -= 20
                 y -= 20
