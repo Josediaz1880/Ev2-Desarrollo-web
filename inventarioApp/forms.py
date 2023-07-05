@@ -177,8 +177,7 @@ class inventoryForm(forms.ModelForm):
             exists = producto_inventario.objects.filter(
                 inventario_id=inventario, producto_id=producto).exists()
             if exists:
-                self.add_error(
-                    None, 'Este producto ya existe en el inventario.')
+                self.add_error('cantidad', 'Este producto ya existe en el inventario.')
 
         return cleaned_data
 """ ------------------------------------------------------------- """

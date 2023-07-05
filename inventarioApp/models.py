@@ -76,7 +76,8 @@ class proveedor_producto(models.Model):
 class entradaMercancia(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     cantidad = models.IntegerField()
-    producto = models.ForeignKey(productos, null=True, on_delete=models.CASCADE)
+    producto = models.ForeignKey(
+        productos, null=True, on_delete=models.CASCADE)
     sucursal = models.ForeignKey(sucursales, on_delete=models.CASCADE)
 
     class Meta:
@@ -93,17 +94,24 @@ class entradaMercancia(models.Model):
             raise ValueError("La cantidad debe ser especificada.")
 
         # Verificar si el producto ya existe en el inventario de la sucursal
-        producto_inv, created = producto_inventario.objects.get_or_create(producto=self.producto, inventario__sucursal=self.sucursal, cantidad=self.cantidad)
+        producto_inv, created = producto_inventario.objects.get_or_create(
+            producto=self.producto,
+            inventario__sucursal=self.sucursal
+        )
 
         if created:
             # Si el producto no existe, crear un nuevo registro en producto_inventario con la cantidad de entradaMercancia
-            producto_inv = producto_inventario.objects.create(producto=self.producto, inventario__sucursal=self.sucursal, cantidad=self.cantidad)
+            producto_inv = producto_inventario.objects.create(
+                producto=self.producto,
+                inventario__sucursal=self.sucursal,
+                cantidad=self.cantidad
+            )
         else:
             # Si el producto ya existe, sumar la cantidad de entradaMercancia a la cantidad existente en producto_inventario
             producto_inv.cantidad += self.cantidad
             producto_inv.save()
 
-        super().save(*args, **kwargs)
+        super(entradaMercancia, self).save(*args, **kwargs)
 
 
 """ --------------------------------------------------- """
