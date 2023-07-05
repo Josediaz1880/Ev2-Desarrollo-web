@@ -265,3 +265,18 @@ class InformeForm(forms.Form):
     incluir_sucursales = forms.BooleanField(required=False)
     incluir_inventarios = forms.BooleanField(required=False)
     incluir_usuarios = forms.BooleanField(required=False)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        seleccionado = False
+
+        for field_name in cleaned_data:
+            if cleaned_data[field_name]:
+                seleccionado = True
+                break
+
+        if not seleccionado:
+            self.add_error('incluir_devoluciones',
+                           "Debes seleccionar al menos un campo.")
+
+        return cleaned_data

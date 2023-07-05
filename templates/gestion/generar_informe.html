@@ -20,32 +20,81 @@
                   <div class="form-group text-center text-uppercase">
                     <label for="{{ form.incluir_entradas.id_for_label }}" class="fs-6">Incluir Entradas:</label>
                     {{ form.incluir_entradas }}
+                    {% if form.incluir_entradas.errors %}
+                      <div class="text-danger">
+                        {% for error in form.incluir_entradas.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                   <div class="form-group text-center text-uppercase">
                     <label for="{{ form.incluir_salidas.id_for_label }}" class="fs-6">Incluir Salidas:</label>
                     {{ form.incluir_salidas }}
+                    {% if form.incluir_salidas.errors %}
+                      <div class="text-danger">
+                        {% for error in form.incluir_salidas.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                   <div class="form-group text-center text-uppercase">
                     <label for="{{ form.incluir_devoluciones.id_for_label }}" class="fs-6">Incluir Devoluciones:</label>
                     {{ form.incluir_devoluciones }}
+                    {% if form.incluir_devoluciones.errors %}
+                      <div class="text-danger">
+                        {% for error in form.incluir_devoluciones.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group text-center text-uppercase">
                     <label for="{{ form.incluir_productos.id_for_label }}" class="fs-6">Incluir Productos:</label>
                     {{ form.incluir_productos }}
+                    {% if form.incluir_productos.errors %}
+                      <div class="text-danger">
+                        {% for error in form.incluir_productos.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                   <div class="form-group text-center text-uppercase">
                     <label for="{{ form.incluir_sucursales.id_for_label }}" class="fs-6">Incluir Sucursales:</label>
                     {{ form.incluir_sucursales }}
+                    {% if form.incluir_sucursales.errors %}
+                      <div class="text-danger">
+                        {% for error in form.incluir_sucursales.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                   <div class="form-group text-center text-uppercase">
                     <label for="{{ form.incluir_inventarios.id_for_label }}" class="fs-6">Incluir Inventarios:</label>
                     {{ form.incluir_inventarios }}
+                    {% if form.incluir_inventarios.errors %}
+                      <div class="text-danger">
+                        {% for error in form.incluir_inventarios.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                   <div class="form-group text-center text-uppercase">
                     <label for="{{ form.incluir_usuarios.id_for_label }}" class="fs-6">Incluir Usuarios:</label>
                     {{ form.incluir_usuarios }}
+                    {% if form.incluir_usuarios.errors %}
+                      <div class="text-danger">
+                        {% for error in form.incluir_usuarios.errors %}
+                          {{ error }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
