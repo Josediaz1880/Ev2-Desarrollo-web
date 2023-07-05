@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     rol = models.ForeignKey(roles, on_delete=models.CASCADE)
     tipo_permisos_choices =(
         (0, 'Administrador'),
-        (1, 'Gestión de proveedores'),
+        (1, 'Gestión de proveedores-productos'),
         (2, 'Gestión de movimientos'),
     )
     tipo_permisos=models.IntegerField(choices=tipo_permisos_choices, default=0)
