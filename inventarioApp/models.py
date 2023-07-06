@@ -96,7 +96,7 @@ class entradaMercancia(models.Model):
         # Verificar si el producto ya existe en el inventario de la sucursal
         producto_inv, created = producto_inventario.objects.get_or_create(
             producto=self.producto,
-            inventario__sucursal=self.sucursal
+            inventario__sucursal=self.sucursal,
         )
 
         if created:
